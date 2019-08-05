@@ -229,6 +229,7 @@
           var currentUrl = origin+pathName;
           
           if(targetUrl == currentUrl){
+            
             return
           }
           window.location = targetUrl+"?language="+languageCode;
@@ -1945,12 +1946,15 @@ ISO 8601 타임스탬프를 이용하고 있습니다.
                 <a href="#" data-language-name="python">python</a>
           </div>
       </div>
-      <div class="country-change">
-          <select onChange="javascript:changeCountry(this.value)">
-            <option value="ko" selected>한국어</option>
+      <div class="language-change">
+          <select id="languageCode" onChange="javascript:changeCountry(this.value)">
+            <option value="ko">한국어</option>
             <option value="en">English</option>
           </select>
       </div>
     </div>
+    <script>
+      document.getElementById("languageCode").value = languageCode;
+    </script>
   </body>
 </html>
