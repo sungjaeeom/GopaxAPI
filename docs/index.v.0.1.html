@@ -202,33 +202,33 @@
       <script src="javascripts/all_nosearch.js"></script>
 
     <script>
-    var separator = "/";
-
-    var defaultlanguageCode = "ko"
-    var apiPath = getParameterByName("lang","ko");
-    var languageCode = apiPath != "ko"?"en":apiPath;
-
-    var referrer = document.referrer;
-    var tmp = referrer.split(separator);
-    if(tmp.length > 1) {
-      for (var i=0;tmp.length>i;i++){
-        if(tmp[i] != "" && tmp[i].split(".").length > 2 && tmp[i].indexOf("gopax") > 0){
-          if(tmp[i].split(".")[tmp[i].split(".").length] != "kr"){
-            languageCode = "en";
-          }else{
-            languageCode = "ko";
-          }
-        }else{
-          languageCode = getLanguage("ko");
-        }
-      }
-    }
-
-    //alert(defaultlanguageCode+"===="+languageCode)
-    
-    if(defaultlanguageCode != languageCode){
-      changeLanguage(apiPath);
-    }
+    //var separator = "/";
+//
+    //var defaultlanguageCode = "ko"
+    //var apiPath = getParameterByName("lang","ko");
+    //var languageCode = apiPath != "ko"?"en":apiPath;
+    //
+    ////var referrer = document.referrer;
+    ////var tmp = referrer.split(separator);
+    ////if(tmp.length > 1) {
+    ////  for (var i=0;tmp.length>i;i++){
+    ////    if(tmp[i] != "" && tmp[i].split(".").length > 2 && tmp[i].indexOf("gopax") > 0){
+    ////      if(tmp[i].split(".")[tmp[i].split(".").length] != "kr"){
+    ////        languageCode = "en";
+    ////      }else{
+    ////        languageCode = "ko";
+    ////      }
+    ////    }else{
+    ////      languageCode = getLanguage("ko");
+    ////    }
+    ////  }
+    ////}
+//
+    ////alert(defaultlanguageCode+"===="+languageCode)
+    //
+    //if(defaultlanguageCode != languageCode){
+    //  changeLanguage(apiPath);
+    //}
           
     </script>
   </head>
@@ -1919,7 +1919,7 @@ ISO 8601 타임스탬프를 이용하고 있습니다.
       
     </div>
     <div class="language-change">
-          <select id="languageCode" onChange="javascript:changeLanguage(this.value)" width="15">
+          <select id="languageCode" onChange="javascript:changeLanguage(this.value,'true')" width="15">
             <option value="ko">한국어</option>
             <option value="en">English</option>
           </select>

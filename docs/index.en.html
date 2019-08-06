@@ -199,36 +199,36 @@
     </style>
     <link href="stylesheets/screen.css" rel="stylesheet" media="screen" />
     <link href="stylesheets/print.css" rel="stylesheet" media="print" />
-      <script src="javascripts/all.js"></script>
+      <script src="javascripts/all_nosearch.js"></script>
 
     <script>
-    var separator = "/";
-
-    var defaultlanguageCode = "ko"
-    var apiPath = getParameterByName("lang","ko");
-    var languageCode = apiPath != "ko"?"en":apiPath;
-
-    var referrer = document.referrer;
-    var tmp = referrer.split(separator);
-    if(tmp.length > 1) {
-      for (var i=0;tmp.length>i;i++){
-        if(tmp[i] != "" && tmp[i].split(".").length > 2 && tmp[i].indexOf("gopax") > 0){
-          if(tmp[i].split(".")[tmp[i].split(".").length] != "kr"){
-            languageCode = "en";
-          }else{
-            languageCode = "ko";
-          }
-        }else{
-          languageCode = getLanguage("ko");
-        }
-      }
-    }
-
-    //alert(defaultlanguageCode+"===="+languageCode)
-    
-    if(defaultlanguageCode != languageCode){
-      changeLanguage(apiPath);
-    }
+    //var separator = "/";
+//
+    //var defaultlanguageCode = "ko"
+    //var apiPath = getParameterByName("lang","ko");
+    //var languageCode = apiPath != "ko"?"en":apiPath;
+    //
+    ////var referrer = document.referrer;
+    ////var tmp = referrer.split(separator);
+    ////if(tmp.length > 1) {
+    ////  for (var i=0;tmp.length>i;i++){
+    ////    if(tmp[i] != "" && tmp[i].split(".").length > 2 && tmp[i].indexOf("gopax") > 0){
+    ////      if(tmp[i].split(".")[tmp[i].split(".").length] != "kr"){
+    ////        languageCode = "en";
+    ////      }else{
+    ////        languageCode = "ko";
+    ////      }
+    ////    }else{
+    ////      languageCode = getLanguage("ko");
+    ////    }
+    ////  }
+    ////}
+//
+    ////alert(defaultlanguageCode+"===="+languageCode)
+    //
+    //if(defaultlanguageCode != languageCode){
+    //  changeLanguage(apiPath);
+    //}
           
     </script>
   </head>
@@ -247,10 +247,6 @@
               <a href="#" data-language-name="php">php</a>
               <a href="#" data-language-name="python">python</a>
         </div>
-        <div class="search">
-          <input type="text" class="search" id="input-search" placeholder="Search">
-        </div>
-        <ul class="search-results"></ul>
       <ul id="toc" class="toc-list-h1">
           <li>
             <a href="#guide" class="toc-h1 toc-link" data-title="Guide">Guide</a>
@@ -1917,7 +1913,7 @@ Description of ResponseAll API timestamps is returned in microseconds according 
       
     </div>
     <div class="language-change">
-          <select id="languageCode" onChange="javascript:changeLanguage(this.value)" width="15">
+          <select id="languageCode" onChange="javascript:changeLanguage(this.value,'true')" width="15">
             <option value="ko">한국어</option>
             <option value="en">English</option>
           </select>
