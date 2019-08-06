@@ -204,8 +204,10 @@
     <script>
     var separator = "/";
 
-    var languageCode = getLanguage("ko");
-    
+    var defaultlanguageCode = "ko"
+    var apiPath = getParameterByName("language","ko");
+    var languageCode = apiPath != "ko"?"en":apiPath;
+
     var referrer = document.referrer;
     var tmp = referrer.split(separator);
     if(tmp.length > 1) {
@@ -216,69 +218,18 @@
           }else{
             languageCode = "ko";
           }
+        }else{
+          languageCode = getLanguage("ko");
         }
       }
     }
+
+    //alert(defaultlanguageCode+"===="+languageCode)
     
-    
-
-    function getLanguage(dValue){
-      var fullUrl = window.location.href.split(separator);
-      var htmlName = fullUrl[fullUrl.length-1].split(".");
-      var language = htmlName.length >= 3 ? htmlName[1] : dValue;
-      if(language.length != 2) return dValue;
-      return language;
+    if(defaultlanguageCode != languageCode){
+      changeLanguage(apiPath);
     }
-
-    function changeCountry(languageCode){
-        if(languageCode != 'ko' && languageCode != 'en') return;
-               
-        var target = "index."+languageCode+".html";
-
-        if(languageCode == 'ko') target = "";
-        
-        var pathName = window.location.pathname;
-        var path = "/";
-        if(pathName.split(separator).length > 2){
-          path = pathName.split(separator)[2]!= "" ? separator+pathName.split(separator)[1]+separator:pathName;
-        }
-        var origin = window.location.origin;
-        var targetUrl = origin+path+target;
-        var currentUrl = origin+pathName;
-        
-        if(targetUrl == currentUrl){            
-          return
-        }
-        window.location = targetUrl;
-    }
-
-    function goAPIhistory(target){
-        var separator = "/";
-        var pathName = window.location.pathname;
-        var path = pathName.split(separator)[2]!= "" ? separator+pathName.split(separator)[1]+separator:pathName;
-        var origin = window.location.origin;
-        var targetUrl = origin+path+target;
-        var currentUrl = origin+pathName;
-        if(targetUrl == currentUrl){
-          return
-        }
-        window.location = targetUrl;
-    }
-
-    function apiGitHome(){
-        var separator = "/";
-        var account = window.location.host.split(".")[0];
-        var pathName = window.location.pathname;
-        var path = pathName.split(separator)[2]!= "" ? separator+pathName.split(separator)[1]+separator:pathName;
-        var targetUrl = "https://github.com/"+account+path;
-        window.open(targetUrl);
-    }
-
-    function setLanguage() {
-      document.getElementById("languageCode").value = languageCode;
-    }
-
-      
+          
     </script>
   </head>
 
@@ -1968,7 +1919,7 @@ ISO 8601 타임스탬프를 이용하고 있습니다.
       
     </div>
     <div class="language-change">
-          <select id="languageCode" onChange="javascript:changeCountry(this.value)" width="15">
+          <select id="languageCode" onChange="javascript:changeLanguage(this.value)" width="15">
             <option value="ko">한국어</option>
             <option value="en">English</option>
           </select>
