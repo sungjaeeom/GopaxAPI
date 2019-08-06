@@ -203,7 +203,24 @@
 
     <script>
     var separator = "/";
+
     var languageCode = getLanguage("ko");
+    
+    var referrer = document.referrer;
+    var tmp = referrer.split(separator);
+    if(tmp.length > 1) {
+      for (var i=0;tmp.length>i;i++){
+        if(tmp[i] != "" && tmp[i].split(".").length > 2 && tmp[i].indexOf("gopax") > 0){
+          if(tmp[i].split(".")[tmp[i].split(".").length] != "kr"){
+            languageCode = "en";
+          }else{
+            languageCode = "ko";
+          }
+        }
+      }
+    }
+    
+    
 
     function getLanguage(dValue){
       var fullUrl = window.location.href.split(separator);
@@ -354,9 +371,6 @@
                   </li>
                   <li>
                     <a href="#a1dac3e0a0" class="toc-h2 toc-link" data-title="과거 기록 조회하기">과거 기록 조회하기</a>
-                  </li>
-                  <li>
-                    <a href="#24-2" class="toc-h2 toc-link" data-title="모든 거래쌍의 최근 24시간 통계 조회하기">모든 거래쌍의 최근 24시간 통계 조회하기</a>
                   </li>
               </ul>
           </li>
@@ -1294,7 +1308,7 @@ ISO 8601 타임스탬프를 이용하고 있습니다.
     </span><span class="s2">"baseAmount"</span><span class="p">:</span><span class="w"> </span><span class="mf">0.00149051</span><span class="p">,</span><span class="w">
     </span><span class="s2">"quoteAmount"</span><span class="p">:</span><span class="w"> </span><span class="mf">15399.94932</span><span class="p">,</span><span class="w">
     </span><span class="s2">"fee"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"price"</span><span class="p">:</span><span class="w"> </span><span class="mi">10332000</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"price"</span><span class="p">:</span><span class="w"> </span><span class="mi">10332000</span><span class="p">,</span><span class="err">Order</span><span class="w"> </span><span class="err">Identification</span><span class="w">
     </span><span class="s2">"timestamp"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2018-03-10T16:03:54.000Z"</span><span class="p">,</span><span class="w">
     </span><span class="s2">"side"</span><span class="p">:</span><span class="w"> </span><span class="s2">"buy"</span><span class="p">,</span><span class="w">
     </span><span class="s2">"tradingPairName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BTC-KRW"</span><span class="w">
@@ -1676,6 +1690,8 @@ ISO 8601 타임스탬프를 이용하고 있습니다.
 ISO 8601 타임스탬프를 이용하고 있습니다.
 </aside>
 <h2 id='a1dac3e0a0'>과거 기록 조회하기</h2>
+<p>Order Identification</p>
+
 <blockquote>
 <p>결과 :</p>
 </blockquote>
@@ -1697,102 +1713,60 @@ ISO 8601 타임스탬프를 이용하고 있습니다.
     </span><span class="mf">0.01</span><span class="w">
   </span><span class="p">]</span><span class="w">
 </span><span class="p">]</span><span class="w">
-</span></code></pre><h3 id='http-15'>HTTP 요청</h3>
-<p><code>GET /trading-pairs/&lt;Trading Pair&gt;/candles?start=&lt;Start&gt;&amp;end=&lt;End&gt;&amp;interval=&lt;Interval&gt;</code></p>
-<h3 id='url-6'>URL 파라미터</h3>
-<table><thead>
-<tr>
-<th>파라미터</th>
-<th>설명</th>
-</tr>
-</thead><tbody>
-<tr>
-<td>Trading Pair</td>
-<td>거래 쌍. <a href="#ab37bf30de">거래쌍 목록 조회하기</a>에서 전체 목록을 확인할 수 있습니다.</td>
-</tr>
-</tbody></table>
-<h3 id='query-4'>Query 파라미터</h3>
-<table><thead>
-<tr>
-<th>파라미터</th>
-<th>필수 여부</th>
-<th>설명</th>
-</tr>
-</thead><tbody>
-<tr>
-<td>Start</td>
-<td>필수</td>
-<td>시작 시점 Timestamp (ms 단위)</td>
-</tr>
-<tr>
-<td>End</td>
-<td>필수</td>
-<td>종료 시점 Timestamp (ms 단위)</td>
-</tr>
-<tr>
-<td>Interval</td>
-<td>필수</td>
-<td>희망하는 시간 간격 (분 단위, 1/5/30/1440)</td>
-</tr>
-</tbody></table>
-<h3 id='cd5e8f5148-10'>결과값 설명</h3>
-<p><code class="block">
-[
-  [
-    [Time],
-    [Low],
-    [High],
-    [Open],
-    [Close],
-    [Volume]
-  ],
-  [
-    1521004080000,
-    10081000,
-    10081000,
-    10081000,
-    10081000,
-    0.01
-  ]
-]
-</code></p>
+</span><span class="err">```Order</span><span class="w"> </span><span class="err">Identification</span><span class="w">
+</span><span class="err">###</span><span class="w"> </span><span class="err">HTTP</span><span class="w"> </span><span class="err">요청</span><span class="w">
+</span><span class="err">`GET</span><span class="w"> </span><span class="err">/trading-pairs/&lt;Trading</span><span class="w"> </span><span class="err">Pair&gt;/candles?start=&lt;Start&gt;&amp;end=&lt;End&gt;&amp;interval=&lt;Interval&gt;`</span><span class="w">
 
-<table><thead>
-<tr>
-<th>값</th>
-<th>설명</th>
-</tr>
-</thead><tbody>
-<tr>
-<td>Time</td>
-<td>최근 데이터 갱신 시각</td>
-</tr>
-<tr>
-<td>Low</td>
-<td>24시간 동안의 최저가</td>
-</tr>
-<tr>
-<td>High</td>
-<td>24시간 동안의 최고가</td>
-</tr>
-<tr>
-<td>Open</td>
-<td>24시간 전의 가격</td>
-</tr>
-<tr>
-<td>Close</td>
-<td>현재가 (1분마다 갱신)</td>
-</tr>
-<tr>
-<td>Volume</td>
-<td>24시간 동안의 거래량</td>
-</tr>
-</tbody></table>
-<h2 id='24-2'>모든 거래쌍의 최근 24시간 통계 조회하기</h2>
-<blockquote>
-<p>결과 :</p>
-</blockquote>
-<pre class="highlight json tab-json"><code><span class="p">[</span><span class="w">
+</span><span class="err">###</span><span class="w"> </span><span class="err">URL</span><span class="w"> </span><span class="err">파라미터</span><span class="w">
+</span><span class="err">|</span><span class="w"> </span><span class="err">파라미터</span><span class="w"> </span><span class="err">|</span><span class="w"> </span><span class="err">설명</span><span class="w"> </span><span class="err">|</span><span class="w">
+</span><span class="err">|</span><span class="w"> </span><span class="err">---</span><span class="w"> </span><span class="err">|</span><span class="w"> </span><span class="err">---</span><span class="w"> </span><span class="err">|</span><span class="w">
+</span><span class="err">|</span><span class="w"> </span><span class="err">Trading</span><span class="w"> </span><span class="err">Pair</span><span class="w"> </span><span class="err">|</span><span class="w"> </span><span class="err">거래</span><span class="w"> </span><span class="err">쌍.</span><span class="w"> </span><span class="p">[</span><span class="err">거래쌍</span><span class="w"> </span><span class="err">목록</span><span class="w"> </span><span class="err">조회하기</span><span class="p">]</span><span class="err">(#ab</span><span class="mi">37</span><span class="err">bf</span><span class="mi">30</span><span class="err">de)에서</span><span class="w"> </span><span class="err">전체</span><span class="w"> </span><span class="err">목록을</span><span class="w"> </span><span class="err">확인할</span><span class="w"> </span><span class="err">수</span><span class="w"> </span><span class="err">있습니다.</span><span class="w"> </span><span class="err">|</span><span class="w">
+
+</span><span class="err">###</span><span class="w"> </span><span class="err">Query</span><span class="w"> </span><span class="err">파라미터</span><span class="w">
+</span><span class="err">|</span><span class="w"> </span><span class="err">파라미터</span><span class="w"> </span><span class="err">|</span><span class="w"> </span><span class="err">필수</span><span class="w"> </span><span class="err">여부</span><span class="w"> </span><span class="err">|</span><span class="w"> </span><span class="err">설명</span><span class="w"> </span><span class="err">|</span><span class="w">
+</span><span class="err">|</span><span class="w"> </span><span class="err">---</span><span class="w"> </span><span class="err">|</span><span class="w"> </span><span class="err">---</span><span class="w"> </span><span class="err">|</span><span class="w"> </span><span class="err">---</span><span class="w"> </span><span class="err">|</span><span class="w">
+</span><span class="err">|</span><span class="w"> </span><span class="err">Start</span><span class="w"> </span><span class="err">|</span><span class="w"> </span><span class="err">필수</span><span class="w"> </span><span class="err">|</span><span class="w"> </span><span class="err">시작</span><span class="w"> </span><span class="err">시점</span><span class="w"> </span><span class="err">Timestamp</span><span class="w"> </span><span class="err">(ms</span><span class="w"> </span><span class="err">단위)</span><span class="w"> </span><span class="err">|</span><span class="w">
+</span><span class="err">|</span><span class="w"> </span><span class="err">End</span><span class="w"> </span><span class="err">|</span><span class="w"> </span><span class="err">필수</span><span class="w"> </span><span class="err">|</span><span class="w"> </span><span class="err">종료</span><span class="w"> </span><span class="err">시점</span><span class="w"> </span><span class="err">Timestamp</span><span class="w"> </span><span class="err">(ms</span><span class="w"> </span><span class="err">단위)</span><span class="w"> </span><span class="err">|</span><span class="w">
+</span><span class="err">|</span><span class="w"> </span><span class="err">Interval</span><span class="w"> </span><span class="err">|</span><span class="w"> </span><span class="err">필수</span><span class="w"> </span><span class="err">|</span><span class="w"> </span><span class="err">희망하는</span><span class="w"> </span><span class="err">시간</span><span class="w"> </span><span class="err">간격</span><span class="w"> </span><span class="err">(분</span><span class="w"> </span><span class="err">단위</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="err">/</span><span class="mi">5</span><span class="err">/</span><span class="mi">30</span><span class="err">/</span><span class="mi">1440</span><span class="err">)</span><span class="w"> </span><span class="err">|</span><span class="w">
+
+</span><span class="err">###</span><span class="w"> </span><span class="err">결과값</span><span class="w"> </span><span class="err">설명</span><span class="w">
+
+</span><span class="err">&lt;code</span><span class="w"> </span><span class="err">class=</span><span class="s2">"block"</span><span class="err">&gt;</span><span class="w">
+</span><span class="p">[</span><span class="w">
+  </span><span class="p">[</span><span class="w">
+    </span><span class="p">[</span><span class="err">Time</span><span class="p">],</span><span class="w">
+    </span><span class="p">[</span><span class="err">Low</span><span class="p">],</span><span class="w">
+    </span><span class="p">[</span><span class="err">High</span><span class="p">],</span><span class="w">
+    </span><span class="p">[</span><span class="err">Open</span><span class="p">],</span><span class="w">
+    </span><span class="p">[</span><span class="err">Close</span><span class="p">],</span><span class="w">
+    </span><span class="p">[</span><span class="err">Volume</span><span class="p">]</span><span class="w">
+  </span><span class="p">],</span><span class="err">Order</span><span class="w"> </span><span class="err">Identification</span><span class="w">
+  </span><span class="p">[</span><span class="w">
+    </span><span class="mi">1521004080000</span><span class="p">,</span><span class="w">
+    </span><span class="mi">10081000</span><span class="p">,</span><span class="w">
+    </span><span class="mi">10081000</span><span class="p">,</span><span class="w">
+    </span><span class="mi">10081000</span><span class="p">,</span><span class="w">
+    </span><span class="mi">10081000</span><span class="p">,</span><span class="w">
+    </span><span class="mf">0.01</span><span class="w">
+  </span><span class="p">]</span><span class="w">
+</span><span class="p">]</span><span class="w">
+</span><span class="err">&lt;/code&gt;</span><span class="w">
+
+</span><span class="err">|</span><span class="w"> </span><span class="err">값</span><span class="w"> </span><span class="err">|</span><span class="w"> </span><span class="err">설명</span><span class="w"> </span><span class="err">|</span><span class="w">
+</span><span class="err">|</span><span class="w"> </span><span class="err">---</span><span class="w"> </span><span class="err">|</span><span class="w"> </span><span class="err">---</span><span class="w"> </span><span class="err">|</span><span class="w">
+</span><span class="err">|</span><span class="w"> </span><span class="err">Time</span><span class="w"> </span><span class="err">|</span><span class="w"> </span><span class="err">최근</span><span class="w"> </span><span class="err">데이터</span><span class="w"> </span><span class="err">갱신</span><span class="w"> </span><span class="err">시각</span><span class="w"> </span><span class="err">|</span><span class="w">
+</span><span class="err">|</span><span class="w"> </span><span class="err">Low</span><span class="w"> </span><span class="err">|</span><span class="w"> </span><span class="mi">24</span><span class="err">시간</span><span class="w"> </span><span class="err">동안의</span><span class="w"> </span><span class="err">최저가</span><span class="w"> </span><span class="err">|</span><span class="w">
+</span><span class="err">|</span><span class="w"> </span><span class="err">High</span><span class="w"> </span><span class="err">|</span><span class="w"> </span><span class="mi">24</span><span class="err">시간</span><span class="w"> </span><span class="err">동안의</span><span class="w"> </span><span class="err">최고가</span><span class="w"> </span><span class="err">|</span><span class="w">
+</span><span class="err">|</span><span class="w"> </span><span class="err">Open</span><span class="w"> </span><span class="err">|</span><span class="w"> </span><span class="mi">24</span><span class="err">시간</span><span class="w"> </span><span class="err">전의</span><span class="w"> </span><span class="err">가격</span><span class="w"> </span><span class="err">|</span><span class="w">
+</span><span class="err">|</span><span class="w"> </span><span class="err">Close</span><span class="w"> </span><span class="err">|</span><span class="w"> </span><span class="err">현재가</span><span class="w"> </span><span class="err">(</span><span class="mi">1</span><span class="err">분마다</span><span class="w"> </span><span class="err">갱신)</span><span class="w"> </span><span class="err">|</span><span class="w">
+</span><span class="err">|</span><span class="w"> </span><span class="err">Volume</span><span class="w"> </span><span class="err">|</span><span class="w"> </span><span class="mi">24</span><span class="err">시간</span><span class="w"> </span><span class="err">동안의</span><span class="w"> </span><span class="err">거래량</span><span class="w"> </span><span class="err">|</span><span class="w">
+
+</span><span class="err">##</span><span class="w"> </span><span class="err">모든</span><span class="w"> </span><span class="err">거래쌍의</span><span class="w"> </span><span class="err">최근</span><span class="w"> </span><span class="mi">24</span><span class="err">시간</span><span class="w"> </span><span class="err">통계</span><span class="w"> </span><span class="err">조회하기</span><span class="w">
+
+</span><span class="err">&gt;</span><span class="w"> </span><span class="err">결과</span><span class="w"> </span><span class="p">:</span><span class="w">
+
+</span><span class="err">```json</span><span class="w">
+</span><span class="p">[</span><span class="w">
   </span><span class="p">{</span><span class="w">
     </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ETH-KRW"</span><span class="p">,</span><span class="w">
     </span><span class="s2">"open"</span><span class="p">:</span><span class="w"> </span><span class="mi">780000</span><span class="p">,</span><span class="w">
@@ -1811,7 +1785,7 @@ ISO 8601 타임스탬프를 이용하고 있습니다.
     </span><span class="s2">"time"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2018-03-14T05:12:08.245Z"</span><span class="w">
   </span><span class="p">},</span><span class="w"> </span><span class="p">{</span><span class="w">
     </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BCH-KRW"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"open"</span><span class="p">:</span><span class="w"> </span><span class="mi">1234000</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"open"</span><span class="p">:</span><span class="w"> </span><span class="mi">1234000</span><span class="p">,</span><span class="err">Order</span><span class="w"> </span><span class="err">Identification</span><span class="w">
     </span><span class="s2">"high"</span><span class="p">:</span><span class="w"> </span><span class="mi">1234000</span><span class="p">,</span><span class="w">
     </span><span class="s2">"low"</span><span class="p">:</span><span class="w"> </span><span class="mi">1120000</span><span class="p">,</span><span class="w">
     </span><span class="s2">"close"</span><span class="p">:</span><span class="w"> </span><span class="mi">1149500</span><span class="p">,</span><span class="w">
@@ -1819,9 +1793,9 @@ ISO 8601 타임스탬프를 이용하고 있습니다.
     </span><span class="s2">"time"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2018-03-14T04:40:06.535Z"</span><span class="w">
   </span><span class="p">}</span><span class="w">
 </span><span class="p">]</span><span class="w">
-</span></code></pre><h3 id='http-16'>HTTP 요청</h3>
+</span></code></pre><h3 id='http-15'>HTTP 요청</h3>
 <p><code>GET /trading-pairs/stats</code></p>
-<h3 id='cd5e8f5148-11'>결과값 설명</h3>
+<h3 id='cd5e8f5148-10'>결과값 설명</h3>
 <p><code class="block">
   {
   &quot;name&quot;: [Trading Pair],

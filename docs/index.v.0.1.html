@@ -203,7 +203,24 @@
 
     <script>
     var separator = "/";
+
     var languageCode = getLanguage("ko");
+    
+    var referrer = document.referrer;
+    var tmp = referrer.split(separator);
+    if(tmp.length > 1) {
+      for (var i=0;tmp.length>i;i++){
+        if(tmp[i] != "" && tmp[i].split(".").length > 2 && tmp[i].indexOf("gopax") > 0){
+          if(tmp[i].split(".")[tmp[i].split(".").length] != "kr"){
+            languageCode = "en";
+          }else{
+            languageCode = "ko";
+          }
+        }
+      }
+    }
+    
+    
 
     function getLanguage(dValue){
       var fullUrl = window.location.href.split(separator);
