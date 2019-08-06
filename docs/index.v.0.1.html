@@ -1,8 +1,8 @@
 
 <!doctype html>
-<html><i style="color: black;">
+<html>
   <head>
-    <meta charset="UTF-8">
+    <meta charset="utf-8">
     <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <title>API Reference</title>
@@ -195,71 +195,77 @@
 .highlight .o {
   color: #f92672;
 }
-      
       code.block { display: block; overflow: auto; white-space: pre; color:grey;background-color: grey;padding-left:10px;}
     </style>
     <link href="stylesheets/screen.css" rel="stylesheet" media="screen" />
     <link href="stylesheets/print.css" rel="stylesheet" media="print" />
-      <script src="javascripts/all.js"></script>
+      <script src="javascripts/all_nosearch.js"></script>
+
     <script>
+    var separator = "/";
+    var languageCode = getLanguage("ko");
 
-      var languageCode = getParameterByName("language","ko");
+    function getLanguage(dValue){
+      var fullUrl = window.location.href.split(separator);
+      var htmlName = fullUrl[fullUrl.length-1].split(".");
+      var language = htmlName.length >= 3 ? htmlName[1] : dValue;
+      if(language.length != 2) return dValue;
+      return language;
+    }
+
+    function changeCountry(languageCode){
+        if(languageCode != 'ko' && languageCode != 'en') return;
+               
+        var target = "index."+languageCode+".html";
+
+        if(languageCode == 'ko') target = "";
+        
+        var pathName = window.location.pathname;
+        var path = "/";
+        if(pathName.split(separator).length > 2){
+          path = pathName.split(separator)[2]!= "" ? separator+pathName.split(separator)[1]+separator:pathName;
+        }
+        var origin = window.location.origin;
+        var targetUrl = origin+path+target;
+        var currentUrl = origin+pathName;
+        
+        if(targetUrl == currentUrl){            
+          return
+        }
+        window.location = targetUrl;
+    }
+
+    function goAPIhistory(target){
+        var separator = "/";
+        var pathName = window.location.pathname;
+        var path = pathName.split(separator)[2]!= "" ? separator+pathName.split(separator)[1]+separator:pathName;
+        var origin = window.location.origin;
+        var targetUrl = origin+path+target;
+        var currentUrl = origin+pathName;
+        if(targetUrl == currentUrl){
+          return
+        }
+        window.location = targetUrl;
+    }
+
+    function apiGitHome(){
+        var separator = "/";
+        var account = window.location.host.split(".")[0];
+        var pathName = window.location.pathname;
+        var path = pathName.split(separator)[2]!= "" ? separator+pathName.split(separator)[1]+separator:pathName;
+        var targetUrl = "https://github.com/"+account+path;
+        window.open(targetUrl);
+    }
+
+    function setLanguage() {
+      document.getElementById("languageCode").value = languageCode;
+    }
+
       
-      changeCountry(languageCode);
-
-      function getParameterByName(name, dValue) {
-        name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
-        var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
-            results = regex.exec(location.search);
-        return results === null ? dValue : decodeURIComponent(results[1].replace(/\+/g, " "));
-      }
-
-      function changeCountry(languageCode){
-          
-          var separator = "/"
-          var target = "index."+languageCode+".html";
-          
-          var pathName = window.location.pathname;
-          var path = "/";
-          if(pathName.split(separator).length > 2){
-            path = pathName.split(separator)[2]!= "" ? separator+pathName.split(separator)[1]+separator:pathName;
-          }
-          var origin = window.location.origin;
-          var targetUrl = origin+path+target;
-          var currentUrl = origin+pathName;
-          
-          if(targetUrl == currentUrl){
-            
-            return
-          }
-          window.location = targetUrl+"?language="+languageCode;
-      }
-
-      function goAPIhistory(target){
-          var separator = "/";
-          var pathName = window.location.pathname;
-          var path = pathName.split(separator)[2]!= "" ? separator+pathName.split(separator)[1]+separator:pathName;
-          var origin = window.location.origin;
-          var targetUrl = origin+path+target;
-          var currentUrl = origin+pathName;
-          if(targetUrl == currentUrl){
-            return
-          }
-          window.location = targetUrl;
-      }
-
-      function apiGitHome(){
-          var separator = "/";
-          var account = window.location.host.split(".")[0];
-          var pathName = window.location.pathname;
-          var path = pathName.split(separator)[2]!= "" ? separator+pathName.split(separator)[1]+separator:pathName;
-          var targetUrl = "https://github.com/"+account+path;
-          window.open(targetUrl);
-      }
     </script>
   </head>
 
-  <body class="index" data-languages="[&quot;javascript&quot;,&quot;php&quot;,&quot;python&quot;]">
+  <body class="index" data-languages="[&quot;javascript&quot;,&quot;php&quot;,&quot;python&quot;]" onload="javascript:setLanguage();">
     <a href="#" id="nav-button">
       <span>
         NAV
@@ -267,17 +273,12 @@
       </span>
     </a>
     <div class="toc-wrapper">
-    <a href="https://www.gopax.co.kr" target="_blank"><img src="https://www.gopax.co.kr/logo.svg" class="logo" alt="Logo" /></a>
+      <a href="https://www.gopax.co.kr" target="_blank"><img src="https://www.gopax.co.kr/logo.svg" class="logo" alt="Logo" /></a>
         <div class="lang-selector">
               <a href="#" data-language-name="javascript">javascript</a>
               <a href="#" data-language-name="php">php</a>
               <a href="#" data-language-name="python">python</a>
         </div>
-        
-        <div class="search">
-          <input type="text" class="search" id="input-search" placeholder="Search">
-        </div>
-        <ul class="search-results"></ul>
       <ul id="toc" class="toc-list-h1">
           <li>
             <a href="#fa255f0ccc" class="toc-h1 toc-link" data-title="소개">소개</a>
@@ -381,6 +382,7 @@
             <li><a href='javascript:goAPIhistory("")' >latest</a></li>
             <li><a href='javascript:goAPIhistory("index.v.0.1.html")' >V0.1</a></li>
         </ul>
+
     </div>
     <div class="page-wrapper">
       <div class="dark-box"></div>
@@ -516,10 +518,10 @@ Content-Type: application/json
 <h3 id='cd5e8f5148'>결과값 설명</h3>
 <p><code class="block" >
 {
-  &quot;asset&quot;: [Asset Name],
-  &quot;avail&quot;: [Avail],
-  &quot;hold&quot;: [Hold],
-  &quot;pendingWithdrawal&quot;: [Pending Withdrawal]
+  &quot;asset&quot;: <i style="color: black;">[Asset Name]</i>,
+  &quot;avail&quot;: <i style="color: black;">[Avail]</i>,
+  &quot;hold&quot;: <i style="color: black;">[Hold]</i>,
+  &quot;pendingWithdrawal&quot;: <i style="color: black;">[Pending Withdrawal]</i>
 }
 </code></p>
 
@@ -573,10 +575,10 @@ Content-Type: application/json
 <h3 id='cd5e8f5148-2'>결과값 설명</h3>
 <p><code class="block" >
 {
-  &quot;asset&quot;: [Asset Name],
-  &quot;avail&quot;: [Avail],
-  &quot;hold&quot;: [Hold],
-  &quot;pendingWithdrawal&quot;: [Pending Withdrawal]
+  &quot;asset&quot;: <i style="color: black;">[Asset Name]</i>,
+  &quot;avail&quot;: <i style="color: black;">[Avail]</i>,
+  &quot;hold&quot;: <i style="color: black;">[Hold]</i>,
+  &quot;pendingWithdrawal&quot;: <i style="color: black;">[Pending Withdrawal]</i>
 }
 </code></p>
 
@@ -631,13 +633,13 @@ Content-Type: application/json
 <h3 id='cd5e8f5148-3'>결과값 설명</h3>
 <p><code class="block">
 {
-  &quot;id&quot;: [ID],
-  &quot;price&quot;: [Price],
-  &quot;amount&quot;: [Amount],
-  &quot;tradingPairName&quot;: [Trading Pair],
-  &quot;side&quot;: [Side],
-  &quot;type&quot;: [Type],
-  &quot;createdAt&quot;: [Created At]
+  &quot;id&quot;: <i style="color: black;">[ID]</i>,
+  &quot;price&quot;: <i style="color: black;">[Price]</i>,
+  &quot;amount&quot;: <i style="color: black;">[Amount]</i>,
+  &quot;tradingPairName&quot;: <i style="color: black;">[Trading Pair]</i>,
+  &quot;side&quot;: <i style="color: black;">[Side]</i>,
+  &quot;type&quot;: <i style="color: black;">[Type]</i>,
+  &quot;createdAt&quot;: <i style="color: black;">[Created At]</i>
 }
 </code></p>
 
@@ -700,15 +702,15 @@ ISO 8601 타임스탬프를 이용하고 있습니다.
 <h3 id='cd5e8f5148-4'>결과값 설명</h3>
 <p><code class="block">
 {
-  &quot;id&quot;: [ID],
-  &quot;status&quot;: [Status],
-  &quot;side&quot;: [Side],
-  &quot;type&quot;: [Type],
-  &quot;price&quot;: [Price],
-  &quot;amount&quot;: [Amount],
-  &quot;remaining&quot;: [Remaining],
-  &quot;tradingPairName&quot;: [Trading Pair],
-  &quot;createdAt&quot;: [Created At]
+  &quot;id&quot;: <i style="color: black;">[ID]</i>,
+  &quot;status&quot;: <i style="color: black;">[Status]</i>,
+  &quot;side&quot;: <i style="color: black;">[Side]</i>,
+  &quot;type&quot;: <i style="color: black;">[Type]</i>,
+  &quot;price&quot;: <i style="color: black;">[Price]</i>,
+  &quot;amount&quot;: <i style="color: black;">[Amount]</i>,
+  &quot;remaining&quot;: <i style="color: black;">[Remaining]</i>,
+  &quot;tradingPairName&quot;: <i style="color: black;">[Trading Pair]</i>,
+  &quot;createdAt&quot;: <i style="color: black;">[Created At]</i>
 }
 </code></p>
 
@@ -771,11 +773,11 @@ ISO 8601 타임스탬프를 이용하고 있습니다.
 <h3 id='9e02b329ac'>요청 본문 설명</h3>
 <p><code class="block" >
 {
-  &quot;type&quot;: [Type],
-  &quot;side&quot;: [Side],
-  &quot;price&quot;: [Price],
-  &quot;amount&quot;: [Amount],
-  &quot;tradingPairName&quot;: [Trading Pair]
+  &quot;type&quot;: <i style="color: black;">[Type]</i>,
+  &quot;side&quot;: <i style="color: black;">[Side]</i>,
+  &quot;price&quot;: <i style="color: black;">[Price]</i>,
+  &quot;amount&quot;: <i style="color: black;">[Amount]</i>,
+  &quot;tradingPairName&quot;: <i style="color: black;">[Trading Pair]</i>
 }
 </code></p>
 
@@ -826,13 +828,13 @@ ISO 8601 타임스탬프를 이용하고 있습니다.
 </span></code></pre>
 <p><code class="block" style="white-space: pre; ">
 {
-  &quot;id&quot;: [ID],
-  &quot;price&quot;: [Price],
-  &quot;amount&quot;: [Amount],
-  &quot;tradingPairName&quot;: [Trading Pair],
-  &quot;side&quot;: [Side],
-  &quot;type&quot;: [Type[],
-  &quot;createdAt&quot;: [Created At]
+  &quot;id&quot;: <i style="color: black;">[ID]</i>,
+  &quot;price&quot;: <i style="color: black;">[Price]</i>,
+  &quot;amount&quot;: <i style="color: black;">[Amount]</i>,
+  &quot;tradingPairName&quot;: <i style="color: black;">[Trading Pair]</i>,
+  &quot;side&quot;: <i style="color: black;">[Side]</i>,
+  &quot;type&quot;: <i style="color: black;">[Type[]</i>,
+  &quot;createdAt&quot;: <i style="color: black;">[Created At]</i>
 }
 </code></p>
 
@@ -1317,15 +1319,15 @@ ISO 8601 타임스탬프를 이용하고 있습니다.
 <h3 id='cd5e8f5148-6'>결과값 설명</h3>
 <p><code class="block">
 {
-  &quot;id&quot;: [ID],
-  &quot;orderId&quot;: [Order ID],
-  &quot;baseAmount&quot;: [Base Amount],
-  &quot;quoteAmount&quot;: [Quote Amount],
-  &quot;fee&quot;: [Fee],
-  &quot;price&quot;: [Price],
-  &quot;timestamp&quot;: [Timestamp],
-  &quot;side&quot;: [Side],
-  &quot;tradingPairName&quot;: [Trading Pair]
+  &quot;id&quot;: <i style="color: black;">[ID]</i>,
+  &quot;orderId&quot;: <i style="color: black;">[Order ID]</i>,
+  &quot;baseAmount&quot;: <i style="color: black;">[Base Amount]</i>,
+  &quot;quoteAmount&quot;: <i style="color: black;">[Quote Amount]</i>,
+  &quot;fee&quot;: <i style="color: black;">[Fee]</i>,
+  &quot;price&quot;: <i style="color: black;">[Price]</i>,
+  &quot;timestamp&quot;: <i style="color: black;">[Timestamp]</i>,
+  &quot;side&quot;: <i style="color: black;">[Side]</i>,
+  &quot;tradingPairName&quot;: <i style="color: black;">[Trading Pair]</i>
 }
 </code></p>
 
@@ -1378,7 +1380,7 @@ ISO 8601 타임스탬프를 이용하고 있습니다.
 </aside>
 <h1 id='api-3'>인증이 필요하지 않은 API</h1><h2 id='c8b9dcea10'>자산 목록 조회하기</h2>
 <blockquote>
-<p>결과:</p>
+<p>결과 :</p>
 </blockquote>
 <pre class="highlight json tab-json"><code><span class="p">[</span><span class="w">
   </span><span class="p">{</span><span class="w">
@@ -1398,7 +1400,7 @@ ISO 8601 타임스탬프를 이용하고 있습니다.
 <p><code>GET /assets</code></p>
 <h2 id='ab37bf30de'>거래쌍 목록 조회하기</h2>
 <blockquote>
-<p>결과:</p>
+<p>결과 :</p>
 </blockquote>
 <pre class="highlight json tab-json"><code><span class="p">[</span><span class="w">
   </span><span class="p">{</span><span class="w">
@@ -1419,7 +1421,7 @@ ISO 8601 타임스탬프를 이용하고 있습니다.
 <p><code>GET /trading-pairs</code></p>
 <h2 id='ticker'>Ticker 조회하기</h2>
 <blockquote>
-<p>결과:</p>
+<p>결과 :</p>
 </blockquote>
 <pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
   </span><span class="s2">"price"</span><span class="p">:</span><span class="w"> </span><span class="mi">10194500</span><span class="p">,</span><span class="w">
@@ -1524,7 +1526,7 @@ ISO 8601 타임스탬프를 이용하고 있습니다.
 </tbody></table>
 <h3 id='cd5e8f5148-7'>결과값 설명</h3>
 <blockquote>
-<p>결과:</p>
+<p>결과 :</p>
 </blockquote>
 <pre class="highlight json tab-json"><code><span class="p">[</span><span class="w">
   </span><span class="p">{</span><span class="w">
@@ -1553,11 +1555,11 @@ ISO 8601 타임스탬프를 이용하고 있습니다.
 </span></code></pre><h3 id='cd5e8f5148-8'>결과값 설명</h3>
 <p><code class="block">
 {
-  &quot;time&quot;: [Time],
-  &quot;id&quot;: [ID],
-  &quot;price&quot;: [Price],
-  &quot;amount&quot;: [Amount],
-  &quot;side&quot;: [Side],
+  &quot;time&quot;: <i style="color: black;">[Time]</i>,
+  &quot;id&quot;: <i style="color: black;">[ID]</i>,
+  &quot;price&quot;: <i style="color: black;">[Price]</i>,
+  &quot;amount&quot;: <i style="color: black;">[Amount]</i>,
+  &quot;side&quot;: <i style="color: black;">[Side]</i>,
 }
 </code></p>
 
@@ -1594,7 +1596,7 @@ ISO 8601 타임스탬프를 이용하고 있습니다.
 </aside>
 <h2 id='24'>최근 24시간 통계 조회하기</h2>
 <blockquote>
-<p>결과:</p>
+<p>결과 :</p>
 </blockquote>
 <pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
   </span><span class="s2">"open"</span><span class="p">:</span><span class="w"> </span><span class="mi">10297000</span><span class="p">,</span><span class="w">
@@ -1609,12 +1611,12 @@ ISO 8601 타임스탬프를 이용하고 있습니다.
 <h3 id='cd5e8f5148-9'>결과값 설명</h3>
 <p><code class="block">
 {
-  &quot;open&quot;: [Open],
-  &quot;high&quot;: [High],
-  &quot;low&quot;: [Low],
-  &quot;close&quot;: [Close],
-  &quot;volume&quot;: [Volume],
-  &quot;time&quot;: [Time],
+  &quot;open&quot;: <i style="color: black;">[Open]</i>,
+  &quot;high&quot;: <i style="color: black;">[High]</i>,
+  &quot;low&quot;: <i style="color: black;">[Low]</i>,
+  &quot;close&quot;: <i style="color: black;">[Close]</i>,
+  &quot;volume&quot;: <i style="color: black;">[Volume]</i>,
+  &quot;time&quot;: <i style="color: black;">[Time]</i>,
 }
 </code></p>
 
@@ -1655,7 +1657,7 @@ ISO 8601 타임스탬프를 이용하고 있습니다.
 </aside>
 <h2 id='a1dac3e0a0'>과거 기록 조회하기</h2>
 <blockquote>
-<p>결과:</p>
+<p>결과 :</p>
 </blockquote>
 <pre class="highlight json tab-json"><code><span class="p">[</span><span class="w">
   </span><span class="p">[</span><span class="w">
@@ -1665,7 +1667,7 @@ ISO 8601 타임스탬프를 이용하고 있습니다.
     </span><span class="mi">10081000</span><span class="p">,</span><span class="w">
     </span><span class="mi">10081000</span><span class="p">,</span><span class="w">
     </span><span class="mf">0.0398393</span><span class="w">
-  </span><span class="p">],</span><span class="w">
+  </span><span class="p">]</span><span class="err">&lt;/i&gt;</span><span class="p">,</span><span class="w">
   </span><span class="p">[</span><span class="w">
     </span><span class="mi">1521004080000</span><span class="p">,</span><span class="w">
     </span><span class="mi">10081000</span><span class="p">,</span><span class="w">
@@ -1717,12 +1719,12 @@ ISO 8601 타임스탬프를 이용하고 있습니다.
 <p><code class="block">
 [
   [
-    [Time],
-    [Low],
-    [High],
-    [Open],
-    [Close],
-    [Volume]
+    <i style="color: black;">[Time]</i>,
+    <i style="color: black;">[Low]</i>,
+    <i style="color: black;">[High]</i>,
+    <i style="color: black;">[Open]</i>,
+    <i style="color: black;">[Close]</i>,
+    <i style="color: black;">[Volume]</i>
   ],
   [
     1521004080000,
@@ -1768,7 +1770,7 @@ ISO 8601 타임스탬프를 이용하고 있습니다.
 </tbody></table>
 <h2 id='24-2'>모든 거래쌍의 최근 24시간 통계 조회하기</h2>
 <blockquote>
-<p>결과:</p>
+<p>결과 :</p>
 </blockquote>
 <pre class="highlight json tab-json"><code><span class="p">[</span><span class="w">
   </span><span class="p">{</span><span class="w">
@@ -1802,13 +1804,13 @@ ISO 8601 타임스탬프를 이용하고 있습니다.
 <h3 id='cd5e8f5148-11'>결과값 설명</h3>
 <p><code class="block">
   {
-  &quot;name&quot;: [Trading Pair],
-  &quot;open&quot;: [Open],
-  &quot;high&quot;: [High],
-  &quot;low&quot;: [Low],
-  &quot;close&quot;: [Close],
-  &quot;volume&quot;: [Volume],
-  &quot;time&quot;: [Time]
+  &quot;name&quot;: <i style="color: black;">[Trading Pair]</i>,
+  &quot;open&quot;: <i style="color: black;">[Open]</i>,
+  &quot;high&quot;: <i style="color: black;">[High]</i>,
+  &quot;low&quot;: <i style="color: black;">[Low]</i>,
+  &quot;close&quot;: <i style="color: black;">[Close]</i>,
+  &quot;volume&quot;: <i style="color: black;">[Volume]</i>,
+  &quot;time&quot;: <i style="color: black;">[Time]</i>
 }
 </code></p>
 
@@ -1946,15 +1948,13 @@ ISO 8601 타임스탬프를 이용하고 있습니다.
                 <a href="#" data-language-name="python">python</a>
           </div>
       </div>
-      <div class="language-change">
-          <select id="languageCode" onChange="javascript:changeCountry(this.value)">
+      
+    </div>
+    <div class="language-change">
+          <select id="languageCode" onChange="javascript:changeCountry(this.value)" width="15">
             <option value="ko">한국어</option>
             <option value="en">English</option>
           </select>
       </div>
-    </div>
-    <script>
-      document.getElementById("languageCode").value = languageCode;
-    </script>
   </body>
 </html>
