@@ -199,13 +199,13 @@
     </style>
     <link href="stylesheets/screen.css" rel="stylesheet" media="screen" />
     <link href="stylesheets/print.css" rel="stylesheet" media="print" />
-      <script src="javascripts/all_nosearch.js"></script>
+      <script src="javascripts/all.js"></script>
 
     <script>
     var separator = "/";
 
     var defaultlanguageCode = "ko"
-    var apiPath = getParameterByName("language","ko");
+    var apiPath = getParameterByName("lang","ko");
     var languageCode = apiPath != "ko"?"en":apiPath;
 
     var referrer = document.referrer;
@@ -241,12 +241,16 @@
       </span>
     </a>
     <div class="toc-wrapper">
-      <a href="https://www.gopax.co.kr" target="_blank"><img src="https://www.gopax.co.kr/logo.svg" class="logo" alt="Logo" /></a>
+      <a href="javaacript:goGopaxHome()"><img src="https://www.gopax.co.kr/logo.svg" class="logo" alt="Logo" /></a>
         <div class="lang-selector">
               <a href="#" data-language-name="javascript">javascript</a>
               <a href="#" data-language-name="php">php</a>
               <a href="#" data-language-name="python">python</a>
         </div>
+        <div class="search">
+          <input type="text" class="search" id="input-search" placeholder="Search">
+        </div>
+        <ul class="search-results"></ul>
       <ul id="toc" class="toc-list-h1">
           <li>
             <a href="#guide" class="toc-h1 toc-link" data-title="Guide">Guide</a>
