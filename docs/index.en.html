@@ -200,37 +200,7 @@
     <link href="stylesheets/screen.css" rel="stylesheet" media="screen" />
     <link href="stylesheets/print.css" rel="stylesheet" media="print" />
       <script src="javascripts/all_nosearch.js"></script>
-
-    <script>
-    //var separator = "/";
-//
-    //var defaultlanguageCode = "ko"
-    //var apiPath = getParameterByName("lang","ko");
-    //var languageCode = apiPath != "ko"?"en":apiPath;
-    //
-    ////var referrer = document.referrer;
-    ////var tmp = referrer.split(separator);
-    ////if(tmp.length > 1) {
-    ////  for (var i=0;tmp.length>i;i++){
-    ////    if(tmp[i] != "" && tmp[i].split(".").length > 2 && tmp[i].indexOf("gopax") > 0){
-    ////      if(tmp[i].split(".")[tmp[i].split(".").length] != "kr"){
-    ////        languageCode = "en";
-    ////      }else{
-    ////        languageCode = "ko";
-    ////      }
-    ////    }else{
-    ////      languageCode = getLanguage("ko");
-    ////    }
-    ////  }
-    ////}
-//
-    ////alert(defaultlanguageCode+"===="+languageCode)
-    //
-    //if(defaultlanguageCode != languageCode){
-    //  changeLanguage(apiPath);
-    //}
-          
-    </script>
+    
   </head>
 
   <body class="index" data-languages="[&quot;javascript&quot;,&quot;php&quot;,&quot;python&quot;]" onload="javascript:setLanguage();">
@@ -678,7 +648,7 @@ All API timestamps is returned in microseconds according to the ISO 8601 format.
 <table><thead>
 <tr>
 <th>Value</th>
-<th>DEscription</th>
+<th>Description</th>
 </tr>
 </thead><tbody>
 <tr>
@@ -1238,7 +1208,7 @@ All API timestamps is returned in microseconds according to the ISO 8601 format.
   </span><span class="p">}</span><span class="w">
 </span><span class="p">]</span><span class="w">
 </span></code></pre><h3 id='http-request-7'>HTTP request</h3>
-<p><code>GET /trades</code></p>
+<p><code>GET /trades?limit=[limit]&amp;pastmax=[pastmax]&amp;latestmin=[latestmin]&amp;after=[after]&amp;before=[before]</code></p>
 <h3 id='query-string-parameter'>Query String Parameter</h3>
 <table><thead>
 <tr>
@@ -1434,7 +1404,7 @@ All API timestamps is returned in microseconds according to the ISO 8601 format
 </tr>
 </tbody></table>
 <h2 id='get-recent-trades'>Get recent trades</h2><h3 id='http-request-12'>HTTP request</h3>
-<p><code>GET /trading-pairs/&lt;Trading Pair&gt;/trades</code></p>
+<p><code>GET /trading-pairs/&lt;Trading Pair&gt;/trades?limit=[limit]&amp;pastmax=[pastmax]&amp;latestmin=[latestmin]&amp;after=[after]&amp;before=[before]</code></p>
 <h3 id='url-parameter-5'>URL parameter</h3>
 <table><thead>
 <tr>
@@ -1624,7 +1594,7 @@ All API timestamps is returned in microseconds according to the ISO 8601 format
     </span><span class="mi">10081000</span><span class="p">,</span><span class="w">
     </span><span class="mi">10081000</span><span class="p">,</span><span class="w">
     </span><span class="mf">0.0398393</span><span class="w">
-  </span><span class="p">]</span><span class="err">&lt;/i&gt;</span><span class="p">,</span><span class="w">
+  </span><span class="p">],</span><span class="w">
   </span><span class="p">[</span><span class="w">
     </span><span class="mi">1521004080000</span><span class="p">,</span><span class="w">
     </span><span class="mi">10081000</span><span class="p">,</span><span class="w">

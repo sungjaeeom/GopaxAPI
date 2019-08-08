@@ -200,37 +200,7 @@
     <link href="stylesheets/screen.css" rel="stylesheet" media="screen" />
     <link href="stylesheets/print.css" rel="stylesheet" media="print" />
       <script src="javascripts/all_nosearch.js"></script>
-
-    <script>
-    //var separator = "/";
-//
-    //var defaultlanguageCode = "ko"
-    //var apiPath = getParameterByName("lang","ko");
-    //var languageCode = apiPath != "ko"?"en":apiPath;
-    //
-    ////var referrer = document.referrer;
-    ////var tmp = referrer.split(separator);
-    ////if(tmp.length > 1) {
-    ////  for (var i=0;tmp.length>i;i++){
-    ////    if(tmp[i] != "" && tmp[i].split(".").length > 2 && tmp[i].indexOf("gopax") > 0){
-    ////      if(tmp[i].split(".")[tmp[i].split(".").length] != "kr"){
-    ////        languageCode = "en";
-    ////      }else{
-    ////        languageCode = "ko";
-    ////      }
-    ////    }else{
-    ////      languageCode = getLanguage("ko");
-    ////    }
-    ////  }
-    ////}
-//
-    ////alert(defaultlanguageCode+"===="+languageCode)
-    //
-    //if(defaultlanguageCode != languageCode){
-    //  changeLanguage(apiPath);
-    //}
-          
-    </script>
+    
   </head>
 
   <body class="index" data-languages="[&quot;javascript&quot;,&quot;php&quot;,&quot;python&quot;]" onload="javascript:setLanguage();">
@@ -341,8 +311,8 @@
           </li>
       </ul>
         <ul class="toc-footer">
-            <li><a href='javascript:getApiKey()' target='_blank'>API 키 받기</a></li>
-            <li><a href='javascript:apiGitHome()' target='_blank'>Github</a></li>
+            <li><a href='javascript:getApiKey()' >API 키 받기</a></li>
+            <li><a href='javascript:apiGitHome()' >Github</a></li>
         </ul>
 
         <ul class="toc-footer">
@@ -1269,7 +1239,7 @@ ISO 8601 타임스탬프를 이용하고 있습니다.
   </span><span class="p">}</span><span class="w">
 </span><span class="p">]</span><span class="w">
 </span></code></pre><h3 id='http-8'>HTTP 요청</h3>
-<p><code>GET /trades</code></p>
+<p><code>GET /trades?limit=[limit]&amp;pastmax=[pastmax]&amp;latestmin=[latestmin]&amp;after=[after]&amp;before=[before]</code></p>
 <h3 id='query'>Query 파라미터</h3>
 <table><thead>
 <tr>
@@ -1465,7 +1435,7 @@ ISO 8601 타임스탬프를 이용하고 있습니다.
 </tr>
 </tbody></table>
 <h2 id='ed00ab10dc'>최근 체결 거래 조회하기</h2><h3 id='http-13'>HTTP 요청</h3>
-<p><code>GET /trading-pairs/&lt;Trading Pair&gt;/trades</code></p>
+<p><code>GET /trading-pairs/&lt;Trading Pair&gt;/trades?limit=[limit]&amp;pastmax=[pastmax]&amp;latestmin=[latestmin]&amp;after=[after]&amp;before=[before]</code></p>
 <h3 id='url-5'>URL 파라미터</h3>
 <table><thead>
 <tr>
@@ -1541,7 +1511,7 @@ ISO 8601 타임스탬프를 이용하고 있습니다.
   </span><span class="p">}</span><span class="w">
 </span><span class="p">]</span><span class="w">
 </span></code></pre><h3 id='cd5e8f5148-8'>결과값 설명</h3>
-<p><code class="block">javascript:getApiKey()
+<p><code class="block">
 {
   &quot;time&quot;: <i style="color: black;">[Time]</i>,
   &quot;id&quot;: <i style="color: black;">[ID]</i>,
@@ -1655,7 +1625,7 @@ ISO 8601 타임스탬프를 이용하고 있습니다.
     </span><span class="mi">10081000</span><span class="p">,</span><span class="w">
     </span><span class="mi">10081000</span><span class="p">,</span><span class="w">
     </span><span class="mf">0.0398393</span><span class="w">
-  </span><span class="p">]</span><span class="err">&lt;/i&gt;</span><span class="p">,</span><span class="w">
+  </span><span class="p">],</span><span class="w">
   </span><span class="p">[</span><span class="w">
     </span><span class="mi">1521004080000</span><span class="p">,</span><span class="w">
     </span><span class="mi">10081000</span><span class="p">,</span><span class="w">
