@@ -318,17 +318,9 @@
         <ul class="toc-footer">
             <li>API history</li>
             <li><a href='javascript:goAPIhistory("")' >latest</a></li>
-            <li><a href='javascript:goAPIhistory("index.v.0.1.html")' >V0.1</a></li>
+            <li><a href='javascript:goAPIhistory(".v.0.1")' >V0.1</a></li>
         </ul>
 
-        <div class="toc-exchange">              
-          <label for="exchange" id="exchange_title">Exchange</label> 
-          <select id="exchange" onChange="javascript:changeExchange(this.value)" style="width:100px;">
-            <option value="ko">Korea</option>
-            <option value="en">Global</option>
-            <option value="id">Indonesia</option>
-          </select>
-        </div>
 
         <div class="toc-lang">
           <label for="languageCode" id="language_title">Language</label> 
@@ -350,7 +342,7 @@
 <h2 id='rest-api'>REST API 주소</h2>
 <p>고팍스의 REST API는 계정/주문 관리 및 공개 마켓 데이터에 대한 엔드포인트를 제공합니다.</p>
 
-<p><code>https://api.gopax.co.kr</code></p>
+<p><code id="apiUrl" ></code></p>
 <h2 id='api'>API 호출 횟수 제한</h2>
 <ul>
 <li>API 호출 횟수 제한을 초과하면 429 - 요청 한도 초과 상태코드가 반환됩니다.</li>
