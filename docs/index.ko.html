@@ -293,9 +293,6 @@
                   <li>
                     <a href="#a1dac3e0a0" class="toc-h2 toc-link" data-title="과거 기록 조회하기">과거 기록 조회하기</a>
                   </li>
-                  <li>
-                    <a href="#24-2" class="toc-h2 toc-link" data-title="모든 거래쌍의 최근 24시간 통계 조회하기">모든 거래쌍의 최근 24시간 통계 조회하기</a>
-                  </li>
               </ul>
           </li>
           <li>
@@ -311,33 +308,17 @@
           </li>
       </ul>
         <ul class="toc-footer">
-            <li><a href='javascript:getApiKey()' >API 키 받기</a></li>
-            <li><a href='javascript:apiGitHome()' >Github</a></li>
+            <li><a href='https://www.gopax.co.kr/account/' target='_blank'>API 키 받기</a></li>
+            <li><a href='javascript:apiGitHome()' target='_blank'>Github</a></li>
         </ul>
 
         <ul class="toc-footer">
             <li>API history</li>
             <li><a href='javascript:goAPIhistory("")' >latest</a></li>
-            <li><a href='javascript:goAPIhistory("v.0.1")' >V0.1</a></li>
+            <li><a href='javascript:goAPIhistory("index.v.0.1.html")' >V0.1</a></li>
         </ul>
 
-        <div class="toc-exchange">              
-          <label for="exchange" id="exchange_title">Exchange</label> 
-          <select id="exchange" onChange="javascript:changeExchange(this.value)" style="width:100px;">
-            <option value="ko">Korea</option>
-            <option value="en">Global</option>
-            <option value="id">Indonesia</option>
-          </select>
-        </div>
 
-        <div class="toc-lang">
-          <label for="languageCode" id="language_title">Language</label> 
-          <select id="languageCode"  onChange="javascript:changeLanguage(this.value)" style="width:100px;">
-            <option value="ko">한국어</option>
-            <option value="en">English</option>
-            <option value="id">Indonesian</option>
-          </select>
-        </div>
 
     </div>
     <div class="page-wrapper">
@@ -350,7 +331,7 @@
 <h2 id='rest-api'>REST API 주소</h2>
 <p>고팍스의 REST API는 계정/주문 관리 및 공개 마켓 데이터에 대한 엔드포인트를 제공합니다.</p>
 
-<p><code id="apiUrl" >https://api.gopax.co.kr</code></p>
+<p><code>https://api.gopax.co.kr</code></p>
 <h2 id='api'>API 호출 횟수 제한</h2>
 <ul>
 <li>API 호출 횟수 제한을 초과하면 429 - 요청 한도 초과 상태코드가 반환됩니다.</li>
@@ -394,16 +375,15 @@ HTTP 본문의 content-type은 application/json 으로 설정해야 합니다.
   <span class="kr">const</span> <span class="nx">hmac</span> <span class="o">=</span> <span class="nx">crypto</span><span class="p">.</span><span class="nx">createHmac</span><span class="p">(</span><span class="s1">'sha512'</span><span class="p">,</span> <span class="nx">key</span><span class="p">);</span>
   <span class="k">return</span> <span class="nx">hmac</span><span class="p">.</span><span class="nx">update</span><span class="p">(</span><span class="nx">what</span><span class="p">).</span><span class="nx">digest</span><span class="p">(</span><span class="s1">'base64'</span><span class="p">);</span>
 <span class="p">};</span>
-</code></pre><pre class="highlight php tab-php"><code><span class="cp">&lt;?</span>
-<span class="k">function</span> <span class="nf">generateSignature</span><span class="p">(</span><span class="nv">$secret</span><span class="p">,</span> <span class="nv">$nonce</span><span class="p">,</span> <span class="nv">$method</span><span class="p">,</span> <span class="nv">$path</span><span class="p">,</span> <span class="nv">$body</span> <span class="o">=</span> <span class="kc">null</span><span class="p">)</span>
-<span class="p">{</span>
-  <span class="nv">$_body</span> <span class="o">=</span> <span class="nv">$body</span> <span class="o">?</span> <span class="nb">json_encode</span><span class="p">(</span><span class="nv">$body</span><span class="p">)</span> <span class="o">:</span> <span class="s1">''</span><span class="p">;</span>
-  <span class="nv">$tokenizedPath</span> <span class="o">=</span> <span class="nb">explode</span><span class="p">(</span><span class="s1">'?'</span><span class="p">,</span> <span class="nv">$path</span><span class="p">);</span>
-  <span class="nv">$requestPath</span>   <span class="o">=</span> <span class="nv">$tokenizedPath</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span>
-  <span class="nv">$what</span>          <span class="o">=</span> <span class="nv">$nonce</span> <span class="o">.</span> <span class="nv">$method</span> <span class="o">.</span> <span class="nv">$requestPath</span> <span class="o">.</span> <span class="nv">$_body</span><span class="p">;</span>
-  <span class="nv">$secret</span>        <span class="o">=</span> <span class="nb">base64_decode</span><span class="p">(</span><span class="nv">$secret</span><span class="p">);</span>
-  <span class="k">return</span> <span class="nb">base64_encode</span><span class="p">(</span><span class="nb">hash_hmac</span><span class="p">(</span><span class="s1">'sha512'</span><span class="p">,</span> <span class="nv">$what</span><span class="p">,</span> <span class="nv">$secret</span><span class="p">,</span> <span class="kc">true</span><span class="p">));</span>
-<span class="p">}</span>
+</code></pre><pre class="highlight php tab-php"><code>function generateSignature($secret, $nonce, $method, $path, $body = null)
+{
+  $_body = $body ? json_encode($body) : '';
+  $tokenizedPath = explode('?', $path);
+  $requestPath   = $tokenizedPath[0];
+  $what          = $nonce . $method . $requestPath . $_body;
+  $secret        = base64_decode($secret);
+  return base64_encode(hash_hmac('sha512', $what, $secret, true));
+}
 </code></pre><pre class="highlight python tab-python"><code><span class="kn">import</span> <span class="nn">time</span><span class="p">,</span> <span class="n">base64</span><span class="p">,</span> <span class="n">hmac</span><span class="p">,</span> <span class="n">hashlib</span>
 
 <span class="n">nonce</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">())</span>
@@ -430,7 +410,7 @@ HTTP 본문의 content-type은 application/json 으로 설정해야 합니다.
 </ol>
 
 <aside class="warning">
-Secret Key는 API Key 발급시 생성됩니다. Secret Key 분실시 <a href="javascript:getApiKey()">API Key</a>를 재발급 받으셔야 합니다.
+Secret Key는 API Key 발급시 생성됩니다. Secret Key 분실시 <a href="https://www.gopax.co.kr/account">API Key</a>를 재발급 받으셔야 합니다.
 </aside>
 <h2 id='http'>HTTP 헤더 예제</h2>
 <p><code class="block" >
@@ -441,7 +421,7 @@ Content-Type: application/json
 </code></p>
 
 <aside class="warning">
-위 예제는 테스트에 이용될 수 없습니다. <a href="javascript:getApiKey()">개인 API Key</a>를 통해서 생성해주세요.
+위 예제는 테스트에 이용될 수 없습니다. <a href="https://www.gopax.co.kr/account">개인 API Key</a>를 통해서 생성해주세요.
 </aside>
 <h1 id='api-2'>인증이 필요한 API</h1><h2 id='44f0674afb'>잔액 조회하기</h2>
 <blockquote>
@@ -475,10 +455,10 @@ Content-Type: application/json
 <h3 id='cd5e8f5148'>결과값 설명</h3>
 <p><code class="block" >
 {
-  &quot;asset&quot;: <i style="color: black;">[Asset Name]</i>,
-  &quot;avail&quot;: <i style="color: black;">[Avail]</i>,
-  &quot;hold&quot;: <i style="color: black;">[Hold]</i>,
-  &quot;pendingWithdrawal&quot;: <i style="color: black;">[Pending Withdrawal]</i>
+  &quot;asset&quot;: [Asset Name],
+  &quot;avail&quot;: [Avail],
+  &quot;hold&quot;: [Hold],
+  &quot;pendingWithdrawal&quot;: [Pending Withdrawal]
 }
 </code></p>
 
@@ -532,10 +512,10 @@ Content-Type: application/json
 <h3 id='cd5e8f5148-2'>결과값 설명</h3>
 <p><code class="block" >
 {
-  &quot;asset&quot;: <i style="color: black;">[Asset Name]</i>,
-  &quot;avail&quot;: <i style="color: black;">[Avail]</i>,
-  &quot;hold&quot;: <i style="color: black;">[Hold]</i>,
-  &quot;pendingWithdrawal&quot;: <i style="color: black;">[Pending Withdrawal]</i>
+  &quot;asset&quot;: [Asset Name],
+  &quot;avail&quot;: [Avail],
+  &quot;hold&quot;: [Hold],
+  &quot;pendingWithdrawal&quot;: [Pending Withdrawal]
 }
 </code></p>
 
@@ -590,13 +570,13 @@ Content-Type: application/json
 <h3 id='cd5e8f5148-3'>결과값 설명</h3>
 <p><code class="block">
 {
-  &quot;id&quot;: <i style="color: black;">[ID]</i>,
-  &quot;price&quot;: <i style="color: black;">[Price]</i>,
-  &quot;amount&quot;: <i style="color: black;">[Amount]</i>,
-  &quot;tradingPairName&quot;: <i style="color: black;">[Trading Pair]</i>,
-  &quot;side&quot;: <i style="color: black;">[Side]</i>,
-  &quot;type&quot;: <i style="color: black;">[Type]</i>,
-  &quot;createdAt&quot;: <i style="color: black;">[Created At]</i>
+  &quot;id&quot;: [ID],
+  &quot;price&quot;: [Price],
+  &quot;amount&quot;: [Amount],
+  &quot;tradingPairName&quot;: [Trading Pair],
+  &quot;side&quot;: [Side],
+  &quot;type&quot;: [Type],
+  &quot;createdAt&quot;: [Created At]
 }
 </code></p>
 
@@ -654,20 +634,20 @@ ISO 8601 타임스탬프를 이용하고 있습니다.
   </span><span class="s2">"tradingPairName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"CND-KRW"</span><span class="p">,</span><span class="w">
   </span><span class="s2">"createdAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2018-01-08T12:44:03.000Z"</span><span class="w">
 </span><span class="p">}</span><span class="w">
-</span></code></pre><h3 id='http-signature_b64'>HTTP 요청signature_b64</h3>
+</span></code></pre><h3 id='http-5'>HTTP 요청</h3>
 <p><code>GET /orders/&lt;Order Id&gt;</code></p>
 <h3 id='cd5e8f5148-4'>결과값 설명</h3>
 <p><code class="block">
 {
-  &quot;id&quot;: <i style="color: black;">[ID]</i>,
-  &quot;status&quot;: <i style="color: black;">[Status]</i>,
-  &quot;side&quot;: <i style="color: black;">[Side]</i>,
-  &quot;type&quot;: <i style="color: black;">[Type]</i>,
-  &quot;price&quot;: <i style="color: black;">[Price]</i>,
-  &quot;amount&quot;: <i style="color: black;">[Amount]</i>,
-  &quot;remaining&quot;: <i style="color: black;">[Remaining]</i>,
-  &quot;tradingPairName&quot;: <i style="color: black;">[Trading Pair]</i>,
-  &quot;createdAt&quot;: <i style="color: black;">[Created At]</i>
+  &quot;id&quot;: [ID],
+  &quot;status&quot;: [Status],
+  &quot;side&quot;: [Side],
+  &quot;type&quot;: [Type],
+  &quot;price&quot;: [Price],
+  &quot;amount&quot;: [Amount],
+  &quot;remaining&quot;: [Remaining],
+  &quot;tradingPairName&quot;: [Trading Pair],
+  &quot;createdAt&quot;: [Created At]
 }
 </code></p>
 
@@ -716,196 +696,45 @@ ISO 8601 타임스탬프를 이용하고 있습니다.
 </aside>
 <h2 id='6796537949'>주문 등록하기</h2>
 <blockquote>
-<p>예제 :</p>
+<p>ETH-KRW를 지정가로 100만원에 ETH 10개 매수 예제</p>
 </blockquote>
-<pre class="highlight python tab-python"><code><span class="kn">import</span> <span class="nn">time</span><span class="p">,</span> <span class="n">base64</span><span class="p">,</span> <span class="n">hmac</span><span class="p">,</span> <span class="n">hashlib</span><span class="p">,</span> <span class="n">requests</span><span class="p">,</span> <span class="n">json</span>
-
-<span class="n">apikey</span> <span class="o">=</span> <span class="s">''</span> 
-<span class="n">secret</span> <span class="o">=</span> <span class="s">''</span>  
-<span class="n">nonce</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">())</span>
-<span class="n">method</span> <span class="o">=</span> <span class="s">'POST'</span>
-<span class="n">request_path</span> <span class="o">=</span> <span class="s">'/orders'</span>
-
-<span class="n">request_body</span> <span class="o">=</span> 
-<span class="c"># ETH-KRW를 지정가로 100만원에 ETH 10개 매수</span>
-<span class="p">{</span>
-    <span class="s">"type"</span><span class="p">:</span> <span class="s">"limit"</span><span class="p">,</span>
-    <span class="s">"side"</span><span class="p">:</span> <span class="s">"buy"</span><span class="p">,</span>
-    <span class="s">"price"</span><span class="p">:</span> <span class="mi">1000000</span><span class="p">,</span>
-    <span class="s">"amount"</span><span class="p">:</span> <span class="mi">10</span><span class="p">,</span>
-    <span class="s">"tradingPairName"</span><span class="p">:</span> <span class="s">"ETH-KRW"</span>
-<span class="p">}</span>
-<span class="c"># ETH-KRW를 시장가로 ETH 10개 매도</span>
-<span class="p">{</span>
-      <span class="s">"type"</span><span class="p">:</span> <span class="s">"market"</span><span class="p">,</span>
-      <span class="s">"side"</span><span class="p">:</span> <span class="s">"sell"</span><span class="p">,</span>
-      <span class="s">"amount"</span><span class="p">:</span> <span class="mi">10</span><span class="p">,</span>
-      <span class="s">"tradingPairName"</span><span class="p">:</span> <span class="s">"ETH-KRW"</span>
-<span class="p">}</span>
-<span class="c"># ETH-KRW를 시장가로 100만원어치의 이더리움을 구매</span>
-<span class="p">{</span>
-    <span class="s">"type"</span><span class="p">:</span> <span class="s">"market"</span><span class="p">,</span>
-    <span class="s">"side"</span><span class="p">:</span> <span class="s">"buy"</span><span class="p">,</span>
-    <span class="s">"amount"</span><span class="p">:</span> <span class="mi">1000000</span><span class="p">,</span>
-    <span class="s">"tradingPairName"</span><span class="p">:</span> <span class="s">"ETH-KRW"</span>
-<span class="p">}</span>
-
-<span class="n">what</span> <span class="o">=</span> <span class="n">nonce</span> <span class="o">+</span> <span class="n">method</span> <span class="o">+</span> <span class="n">request_path</span> <span class="o">+</span> <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">request_body</span><span class="p">,</span><span class="n">sort_keys</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
-<span class="n">key</span> <span class="o">=</span> <span class="n">base64</span><span class="o">.</span><span class="n">b64decode</span><span class="p">(</span><span class="n">secret</span><span class="p">)</span>
-<span class="n">signature</span> <span class="o">=</span> <span class="n">hmac</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">what</span><span class="p">)</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s">'utf-8'</span><span class="p">),</span> <span class="n">hashlib</span><span class="o">.</span><span class="n">sha512</span><span class="p">)</span>
-<span class="n">signature_b64</span> <span class="o">=</span> <span class="n">base64</span><span class="o">.</span><span class="n">b64encode</span><span class="p">(</span><span class="n">signature</span><span class="o">.</span><span class="n">digest</span><span class="p">())</span>
-
-<span class="n">custom_headers</span> <span class="o">=</span> <span class="p">{</span>
-    <span class="s">'API-Key'</span><span class="p">:</span> <span class="n">apikey</span><span class="p">,</span>
-    <span class="s">'Signature'</span><span class="p">:</span> <span class="n">signature_b64</span><span class="p">,</span>
-    <span class="s">'Nonce'</span><span class="p">:</span> <span class="n">nonce</span>
-<span class="p">}</span>
-
-<span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
-    <span class="n">req</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="n">url</span> <span class="o">=</span> <span class="s">'API End point URL'</span> <span class="o">+</span> <span class="n">request_path</span><span class="p">,</span> <span class="n">headers</span> <span class="o">=</span> <span class="n">custom_headers</span><span class="p">,</span><span class="n">json</span><span class="o">=</span><span class="n">request_body</span><span class="p">)</span>
-
-    <span class="k">if</span> <span class="n">req</span><span class="o">.</span><span class="n">ok</span><span class="p">:</span>
-        <span class="k">print</span><span class="p">(</span><span class="n">req</span><span class="o">.</span><span class="n">text</span><span class="p">)</span>
-    <span class="k">else</span><span class="p">:</span>
-        <span class="k">print</span> <span class="p">(</span><span class="s">'요청 에러'</span><span class="p">)</span>
-        <span class="k">print</span><span class="p">(</span><span class="n">req</span><span class="o">.</span><span class="n">text</span><span class="p">)</span>
-
-<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s">'__main__'</span><span class="p">:</span>
-    <span class="n">main</span><span class="p">()</span>
-</code></pre><pre class="highlight javascript tab-javascript"><code><span class="kd">var</span> <span class="nx">crypto</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'crypto'</span><span class="p">);</span>
-<span class="kd">var</span> <span class="nx">request</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'request'</span><span class="p">);</span>
-
-<span class="kd">var</span> <span class="nx">apikey</span> <span class="o">=</span> <span class="s1">''</span><span class="p">;</span>
-<span class="kd">var</span> <span class="nx">secret</span> <span class="o">=</span> <span class="s1">''</span><span class="p">;</span>
-<span class="kd">var</span> <span class="nx">nonce</span> <span class="o">=</span> <span class="nb">Date</span><span class="p">.</span><span class="nx">now</span><span class="p">()</span> <span class="o">*</span> <span class="mi">1000</span><span class="p">;</span>
-<span class="kd">var</span> <span class="nx">method</span> <span class="o">=</span> <span class="s1">'POST'</span><span class="p">;</span>
-<span class="kd">var</span> <span class="nx">requestPath</span> <span class="o">=</span> <span class="s1">'/orders'</span><span class="p">;</span>
-<span class="kd">var</span> <span class="nx">json_body</span> <span class="o">=</span> 
-<span class="c1">// ETH-KRW를 지정가로 100만원에 ETH 10개 매수</span>
-<span class="p">{</span>
-    <span class="na">type</span><span class="p">:</span> <span class="s2">"limit"</span><span class="p">,</span>
-    <span class="na">side</span><span class="p">:</span> <span class="s2">"buy"</span><span class="p">,</span>
-    <span class="na">price</span><span class="p">:</span> <span class="mi">1000000</span><span class="p">,</span>
-    <span class="na">amount</span><span class="p">:</span> <span class="mi">10</span><span class="p">,</span>
-    <span class="na">tradingPairName</span><span class="p">:</span> <span class="s2">"ETH-KRW"</span>
-<span class="p">};</span>
-<span class="c1">// ETH-KRW를 시장가로 ETH 10개 매도</span>
-<span class="p">{</span>
-    <span class="nl">type</span><span class="p">:</span> <span class="s2">"market"</span><span class="p">,</span>
-    <span class="nx">side</span><span class="p">:</span> <span class="s2">"sell"</span><span class="p">,</span>
-    <span class="nx">amount</span><span class="p">:</span> <span class="mi">10</span><span class="p">,</span>
-    <span class="nx">tradingPairName</span><span class="p">:</span> <span class="s2">"ETH-KRW"</span>
-<span class="p">};</span>
-<span class="c1">// ETH-KRW를 시장가로 100만원어치의 이더리움을 구매</span>
-<span class="p">{</span>
-    <span class="nl">type</span><span class="p">:</span> <span class="s2">"market"</span><span class="p">,</span>
-    <span class="nx">side</span><span class="p">:</span> <span class="s2">"buy"</span><span class="p">,</span>
-    <span class="nx">amount</span><span class="p">:</span> <span class="mi">1000000</span><span class="p">,</span>
-    <span class="nx">tradingPairName</span><span class="p">:</span> <span class="s2">"ETH-KRW"</span>
-<span class="p">};</span>
-
-<span class="kd">var</span> <span class="nx">body</span> <span class="o">=</span> <span class="nx">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">(</span><span class="nx">json_body</span><span class="p">,</span> <span class="nb">Object</span><span class="p">.</span><span class="nx">keys</span><span class="p">(</span><span class="nx">json_body</span><span class="p">).</span><span class="nx">sort</span><span class="p">());</span>
-<span class="kd">var</span> <span class="nx">what</span> <span class="o">=</span> <span class="nx">nonce</span> <span class="o">+</span> <span class="nx">method</span> <span class="o">+</span> <span class="nx">requestPath</span> <span class="o">+</span> <span class="nx">body</span><span class="p">;</span>
-<span class="kd">var</span> <span class="nx">key</span> <span class="o">=</span> <span class="nx">Buffer</span><span class="p">(</span><span class="nx">secret</span><span class="p">,</span> <span class="s1">'base64'</span><span class="p">);</span>
-<span class="kd">var</span> <span class="nx">hmac</span> <span class="o">=</span> <span class="nx">crypto</span><span class="p">.</span><span class="nx">createHmac</span><span class="p">(</span><span class="s1">'sha512'</span><span class="p">,</span> <span class="nx">key</span><span class="p">);</span>
-<span class="kd">var</span> <span class="nx">sign</span> <span class="o">=</span> <span class="nx">hmac</span><span class="p">.</span><span class="nx">update</span><span class="p">(</span><span class="nx">what</span><span class="p">).</span><span class="nx">digest</span><span class="p">(</span><span class="s1">'base64'</span><span class="p">);</span>
-
-<span class="kd">var</span> <span class="nx">host</span> <span class="o">=</span> <span class="s1">'API End point URL'</span><span class="p">;</span>
-
-<span class="kd">var</span> <span class="nx">options</span> <span class="o">=</span> <span class="p">{</span>
-  <span class="nx">method</span><span class="p">,</span>
-  <span class="na">body</span><span class="p">:</span> <span class="nx">json_body</span><span class="p">,</span>
-  <span class="na">json</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
-  <span class="na">url</span><span class="p">:</span> <span class="s2">`https://</span><span class="p">${</span><span class="nx">host</span><span class="p">}${</span><span class="nx">requestPath</span><span class="p">}</span><span class="s2">`</span><span class="p">,</span>
-  <span class="na">headers</span><span class="p">:</span> <span class="p">{</span>
-    <span class="nx">API</span><span class="o">-</span><span class="na">KEY</span><span class="p">:</span> <span class="nx">apikey</span><span class="p">,</span>
-    <span class="na">Signature</span><span class="p">:</span> <span class="nx">sign</span><span class="p">,</span>
-    <span class="na">Nonce</span><span class="p">:</span> <span class="nx">nonce</span>
-  <span class="p">},</span>
-  <span class="na">strictSSL</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
-<span class="p">};</span>
-
-<span class="nx">request</span><span class="p">(</span><span class="nx">options</span><span class="p">,</span> <span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="nx">response</span><span class="p">,</span> <span class="nx">b</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
-  <span class="k">if</span> <span class="p">(</span><span class="nx">err</span><span class="p">)</span> <span class="p">{</span>
-    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">'err:'</span><span class="p">,</span> <span class="nx">err</span><span class="p">);</span>
-    <span class="k">return</span><span class="p">;</span>
-  <span class="p">}</span>
-  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">b</span><span class="p">);</span>
-<span class="p">});</span>
-</code></pre><pre class="highlight php tab-php"><code><span class="cp">&lt;?</span>
-<span class="k">private</span> <span class="nx">apiKey</span> <span class="o">=</span> <span class="s1">''</span><span class="p">;</span>
-<span class="k">private</span> <span class="nx">apiSecret</span> <span class="o">=</span> <span class="s1">''</span><span class="p">;</span>
-
-<span class="k">const</span> <span class="no">API_HOST</span> <span class="o">=</span> <span class="s1">'API End point URL'</span><span class="p">;</span>
-<span class="k">const</span> <span class="no">VERSION</span> <span class="o">=</span> <span class="s1">'gopax-php-sdk-20171216'</span><span class="p">;</span>
-
-<span class="k">private</span> <span class="k">function</span> <span class="nf">request</span><span class="p">(</span><span class="nx">string</span> <span class="nv">$method</span><span class="p">,</span> <span class="nx">string</span> <span class="nv">$path</span><span class="p">,</span> <span class="nv">$request</span> <span class="o">=</span> <span class="k">NULL</span><span class="p">)</span>
-<span class="p">{</span>
-    <span class="nv">$curl</span> <span class="o">=</span> <span class="nb">curl_init</span><span class="p">();</span>
-
-    <span class="nv">$mt</span> <span class="o">=</span> <span class="nb">explode</span><span class="p">(</span><span class="s1">' '</span><span class="p">,</span> <span class="nb">microtime</span><span class="p">());</span>
-    <span class="nv">$nonce</span>     <span class="o">=</span> <span class="nv">$mt</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">.</span> <span class="nb">substr</span><span class="p">(</span><span class="nv">$mt</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">6</span><span class="p">);</span>
-    <span class="nv">$method</span>    <span class="o">=</span> <span class="nb">strtoupper</span><span class="p">(</span><span class="nv">$method</span><span class="p">);</span>
-
-    <span class="nv">$tokenizedPath</span> <span class="o">=</span> <span class="nb">explode</span><span class="p">(</span><span class="s1">'?'</span><span class="p">,</span> <span class="nv">$path</span><span class="p">);</span>
-    <span class="nv">$requestPath</span>   <span class="o">=</span> <span class="nv">$tokenizedPath</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span>
-    <span class="nv">$what</span>          <span class="o">=</span> <span class="nv">$nonce</span> <span class="o">.</span> <span class="nv">$method</span> <span class="o">.</span> <span class="nv">$requestPath</span> <span class="o">.</span> <span class="nv">$request</span><span class="p">;</span>
-    <span class="nv">$secret</span>        <span class="o">=</span> <span class="nb">base64_decode</span><span class="p">(</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">apiSecret</span><span class="p">);</span>
-    <span class="nv">$signature</span>     <span class="o">=</span> <span class="nb">base64_encode</span><span class="p">(</span><span class="nb">hash_hmac</span><span class="p">(</span><span class="s1">'sha512'</span><span class="p">,</span> <span class="nv">$what</span><span class="p">,</span> <span class="nv">$secret</span><span class="p">,</span> <span class="kc">true</span><span class="p">));</span>
-
-    <span class="nv">$headers</span><span class="p">[]</span> <span class="o">=</span> <span class="s1">'Content-Type: application/json'</span><span class="p">;</span>
-    <span class="nv">$headers</span><span class="p">[]</span> <span class="o">=</span> <span class="s1">'API-KEY: '</span> <span class="o">.</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">apiKey</span><span class="p">;</span>
-    <span class="nv">$headers</span><span class="p">[]</span> <span class="o">=</span> <span class="s1">'SIGNATURE: '</span> <span class="o">.</span> <span class="nv">$signature</span><span class="p">;</span>
-    <span class="nv">$headers</span><span class="p">[]</span> <span class="o">=</span> <span class="s1">'NONCE: '</span> <span class="o">.</span> <span class="nv">$nonce</span><span class="p">;</span>
-    <span class="nb">curl_setopt</span><span class="p">(</span><span class="nv">$curl</span><span class="p">,</span> <span class="nx">CURLOPT_USERAGENT</span><span class="p">,</span> <span class="nx">self</span><span class="o">::</span><span class="na">VERSION</span><span class="p">);</span>
-    <span class="nb">curl_setopt</span><span class="p">(</span><span class="nv">$curl</span><span class="p">,</span> <span class="nx">CURLOPT_URL</span><span class="p">,</span> <span class="nx">self</span><span class="o">::</span><span class="na">API_HOST</span> <span class="o">.</span> <span class="nv">$path</span><span class="p">);</span>
-    <span class="nb">curl_setopt</span><span class="p">(</span><span class="nv">$curl</span><span class="p">,</span> <span class="nx">CURLOPT_RETURNTRANSFER</span><span class="p">,</span> <span class="kc">true</span><span class="p">);</span>
-    <span class="nb">curl_setopt</span><span class="p">(</span><span class="nv">$curl</span><span class="p">,</span> <span class="nx">CURLOPT_HTTPHEADER</span><span class="p">,</span> <span class="nv">$headers</span><span class="p">);</span>
-    <span class="nb">curl_setopt</span><span class="p">(</span><span class="nv">$curl</span><span class="p">,</span> <span class="nx">CURLOPT_POST</span><span class="p">,</span> <span class="k">TRUE</span><span class="p">);</span>
-    <span class="nb">curl_setopt</span><span class="p">(</span><span class="nv">$curl</span><span class="p">,</span> <span class="nx">CURLOPT_POSTFIELDS</span><span class="p">,</span> <span class="nv">$postData</span><span class="p">);</span>
-
-    <span class="nv">$json</span>       <span class="o">=</span> <span class="nb">curl_exec</span><span class="p">(</span><span class="nv">$curl</span><span class="p">);</span>
-    <span class="nv">$httpStatus</span> <span class="o">=</span> <span class="nb">curl_getinfo</span><span class="p">(</span><span class="nv">$curl</span><span class="p">,</span> <span class="nx">CURLINFO_HTTP_CODE</span><span class="p">);</span>
-    <span class="nb">curl_close</span><span class="p">(</span><span class="nv">$curl</span><span class="p">);</span>
-
-    <span class="k">return</span> <span class="k">new</span> <span class="nx">Response</span><span class="p">(</span><span class="nv">$httpStatus</span><span class="p">,</span> <span class="nv">$json</span><span class="p">);</span>
-<span class="p">}</span>
-
-<span class="k">public</span> <span class="k">function</span> <span class="nf">setParameter</span><span class="p">(</span><span class="nx">string</span> <span class="nv">$type</span><span class="p">,</span> <span class="nx">string</span> <span class="nv">$side</span><span class="p">,</span> <span class="nx">float</span> <span class="nv">$price</span><span class="p">,</span> <span class="nx">float</span> <span class="nv">$amount</span><span class="p">,</span> <span class="nx">string</span> <span class="nv">$tradingPairName</span><span class="p">)</span>
-<span class="p">{</span>
-    <span class="nv">$data</span><span class="p">[</span><span class="s1">'type'</span><span class="p">]</span>            <span class="o">=</span> <span class="nv">$type</span><span class="p">;</span> <span class="c1">// LIMIT, MARKET
-</span>    <span class="nv">$data</span><span class="p">[</span><span class="s1">'side'</span><span class="p">]</span>            <span class="o">=</span> <span class="nv">$side</span><span class="p">;</span> <span class="c1">// BUY, SELL
-</span>    <span class="nv">$data</span><span class="p">[</span><span class="s1">'price'</span><span class="p">]</span>           <span class="o">=</span> <span class="nv">$price</span><span class="p">;</span>
-    <span class="nv">$data</span><span class="p">[</span><span class="s1">'amount'</span><span class="p">]</span>          <span class="o">=</span> <span class="nv">$amount</span><span class="p">;</span>
-    <span class="nv">$data</span><span class="p">[</span><span class="s1">'tradingPairName'</span><span class="p">]</span> <span class="o">=</span> <span class="nv">$tradingPairName</span><span class="p">;</span>
-    <span class="k">return</span> <span class="nb">json_encode</span><span class="p">(</span><span class="nv">$data</span><span class="p">);</span>
-<span class="p">}</span>
-
-<span class="nv">$orderRequest</span> <span class="o">=</span> <span class="nx">setParameter</span><span class="p">(</span>
-  <span class="c1">// ETH-KRW를 지정가로 100만원에 ETH 10개 매수
-</span>   <span class="s1">'limit'</span><span class="p">,</span> <span class="s1">'buy'</span><span class="p">,</span> <span class="mi">10000000</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">,</span> <span class="s1">'ETH-KRW'</span>
- <span class="p">);</span>
- <span class="p">(</span>
-   <span class="c1">// ETH-KRW를 시장가로 ETH 10개 매도
-</span>   <span class="s1">'market'</span><span class="p">,</span> <span class="s1">'sell'</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="s1">'ETH-KRW'</span>
- <span class="p">);</span>
- <span class="p">(</span>
-   <span class="c1">// ETH-KRW를 시장가로 100만원어치의 이더리움을 구매
-</span>   <span class="s1">'market'</span><span class="p">,</span> <span class="s1">'buy'</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1000000</span><span class="p">,</span><span class="s1">'ETH-KRW'</span>
- <span class="p">);</span>
-
-<span class="nb">print_r</span><span class="p">(</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">request</span><span class="p">(</span><span class="s1">'POST'</span><span class="p">,</span><span class="s1">'/orders'</span><span class="p">,</span><span class="nv">$orderRequest</span><span class="p">));</span>
-
-</code></pre><h3 id='http-5'>HTTP 요청</h3>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+    </span><span class="s2">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"limit"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"side"</span><span class="p">:</span><span class="w"> </span><span class="s2">"buy"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"price"</span><span class="p">:</span><span class="w"> </span><span class="mi">1000000</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"amount"</span><span class="p">:</span><span class="w"> </span><span class="mi">10</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"tradingPairName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ETH-KRW"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<blockquote>
+<p>ETH-KRW를 시장가로 ETH 10개 매도 예제</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+      </span><span class="s2">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"market"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"side"</span><span class="p">:</span><span class="w"> </span><span class="s2">"sell"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"amount"</span><span class="p">:</span><span class="w"> </span><span class="mi">10</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"tradingPairName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ETH-KRW"</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span></code></pre>
+<blockquote>
+<p>ETH-KRW를 시장가로 1,000만원어치의 이더리움을 구매</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+    </span><span class="s2">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"market"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"side"</span><span class="p">:</span><span class="w"> </span><span class="s2">"buy"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"amount"</span><span class="p">:</span><span class="w"> </span><span class="mi">10000000</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"tradingPairName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ETH-KRW"</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span></code></pre><h3 id='http-6'>HTTP 요청</h3>
 <p><code>POST /orders</code></p>
 <h3 id='9e02b329ac'>요청 본문 설명</h3>
 <p><code class="block" >
 {
-  &quot;type&quot;: <i style="color: black;">[Type]</i>,
-  &quot;side&quot;: <i style="color: black;">[Side]</i>,
-  &quot;price&quot;: <i style="color: black;">[Price]</i>,
-  &quot;amount&quot;: <i style="color: black;">[Amount]</i>,
-  &quot;tradingPairName&quot;: <i style="color: black;">[Trading Pair]</i>
+  &quot;type&quot;: [Type],
+  &quot;side&quot;: [Side],
+  &quot;price&quot;: [Price],
+  &quot;amount&quot;: [Amount],
+  &quot;tradingPairName&quot;: [Trading Pair]
 }
 </code></p>
 
@@ -940,10 +769,6 @@ ISO 8601 타임스탬프를 이용하고 있습니다.
 <aside class="warning">
 시장가 주문시 amount는 자신이 지불할 자산의 총량(ETH-KRW에서 매수의 경우 KRW, ETH-KRW에서 매도의 경우 ETH)입니다.
 </aside>
-
-<aside class="warning">
- <a href="#rest-api">API Endpoint URL</a>을 확인하시기 바랍니다.
-</aside>
 <h3 id='cd5e8f5148-5'>결과값 설명</h3>
 <blockquote>
 <p>결과 : </p>
@@ -960,13 +785,13 @@ ISO 8601 타임스탬프를 이용하고 있습니다.
 </span></code></pre>
 <p><code class="block" style="white-space: pre; ">
 {
-  &quot;id&quot;: <i style="color: black;">[ID]</i>,
-  &quot;price&quot;: <i style="color: black;">[Price]</i>,
-  &quot;amount&quot;: <i style="color: black;">[Amount]</i>,
-  &quot;tradingPairName&quot;: <i style="color: black;">[Trading Pair]</i>,
-  &quot;side&quot;: <i style="color: black;">[Side]</i>,
-  &quot;type&quot;: <i style="color: black;">[Type[]</i>,
-  &quot;createdAt&quot;: <i style="color: black;">[Created At]</i>
+  &quot;id&quot;: [ID],
+  &quot;price&quot;: [Price],
+  &quot;amount&quot;: [Amount],
+  &quot;tradingPairName&quot;: [Trading Pair],
+  &quot;side&quot;: [Side],
+  &quot;type&quot;: [Type[],
+  &quot;createdAt&quot;: [Created At]
 }
 </code></p>
 
@@ -1009,13 +834,369 @@ ISO 8601 타임스탬프를 이용하고 있습니다.
 <aside class="notice">
 ISO 8601 타임스탬프를 이용하고 있습니다.
 </aside>
+<h3 id='ca90ffae49'>최소 주문수량</h3>
+<table><thead>
+<tr>
+<th style="text-align: center">거래 쌍</th>
+<th style="text-align: right">수량</th>
+<th style="text-align: center">거래 쌍</th>
+<th style="text-align: right">수량</th>
+<th style="text-align: center">거래 쌍</th>
+<th style="text-align: right">수량</th>
+</tr>
+</thead><tbody>
+<tr>
+<td style="text-align: center">ETH-KRW</td>
+<td style="text-align: right">0.001</td>
+<td style="text-align: center">ETH-BTC</td>
+<td style="text-align: right">0.001</td>
+<td style="text-align: center">BCH-ETH</td>
+<td style="text-align: right">0.001</td>
+</tr>
+<tr>
+<td style="text-align: center">BTC-KRW</td>
+<td style="text-align: right">0.00005</td>
+<td style="text-align: center">BCH-BTC</td>
+<td style="text-align: right">0.0005</td>
+<td style="text-align: center">XLM-ETH</td>
+<td style="text-align: right">1</td>
+</tr>
+<tr>
+<td style="text-align: center">BCH-KRW</td>
+<td style="text-align: right">0.001</td>
+<td style="text-align: center">XLM-BTC</td>
+<td style="text-align: right">1</td>
+<td style="text-align: center">ZEC-ETH</td>
+<td style="text-align: right">0.01</td>
+</tr>
+<tr>
+<td style="text-align: center">XLM-KRW</td>
+<td style="text-align: right">1</td>
+<td style="text-align: center">ZEC-BTC</td>
+<td style="text-align: right">0.001</td>
+<td style="text-align: center">LTC-ETH</td>
+<td style="text-align: right">0.005</td>
+</tr>
+<tr>
+<td style="text-align: center">ZEC-KRW</td>
+<td style="text-align: right">0.001</td>
+<td style="text-align: center">LTC-BTC</td>
+<td style="text-align: right">0.005</td>
+<td style="text-align: center">ENG-ETH</td>
+<td style="text-align: right">1</td>
+</tr>
+<tr>
+<td style="text-align: center">LTC-KRW</td>
+<td style="text-align: right">0.005</td>
+<td style="text-align: center">ENG-BTC</td>
+<td style="text-align: right">1</td>
+<td style="text-align: center">CVC-ETH</td>
+<td style="text-align: right">1</td>
+</tr>
+<tr>
+<td style="text-align: center">ENG-KRW</td>
+<td style="text-align: right">0.1</td>
+<td style="text-align: center">CVC-BTC</td>
+<td style="text-align: right">1</td>
+<td style="text-align: center">REQ-ETH</td>
+<td style="text-align: right">1</td>
+</tr>
+<tr>
+<td style="text-align: center">CVC-KRW</td>
+<td style="text-align: right">1</td>
+<td style="text-align: center">REQ-BTC</td>
+<td style="text-align: right">1</td>
+<td style="text-align: center">QASH-ETH</td>
+<td style="text-align: right">1</td>
+</tr>
+<tr>
+<td style="text-align: center">REQ-KRW</td>
+<td style="text-align: right">1</td>
+<td style="text-align: center">QASH-BTC</td>
+<td style="text-align: right">1</td>
+<td style="text-align: center">CND-ETH</td>
+<td style="text-align: right">1</td>
+</tr>
+<tr>
+<td style="text-align: center">QASH-KRW</td>
+<td style="text-align: right">1</td>
+<td style="text-align: center">CND-BTC</td>
+<td style="text-align: right">1</td>
+<td style="text-align: center">SNT-ETH</td>
+<td style="text-align: right">1</td>
+</tr>
+<tr>
+<td style="text-align: center">CND-KRW</td>
+<td style="text-align: right">1</td>
+<td style="text-align: center">SNT-BTC</td>
+<td style="text-align: right">1</td>
+<td style="text-align: center">ZRX-ETH</td>
+<td style="text-align: right">1</td>
+</tr>
+<tr>
+<td style="text-align: center">SNT-KRW</td>
+<td style="text-align: right">1</td>
+<td style="text-align: center">ZRX-BTC</td>
+<td style="text-align: right">1</td>
+<td style="text-align: center">EOS-ETH</td>
+<td style="text-align: right">0.1</td>
+</tr>
+<tr>
+<td style="text-align: center">ZRX-KRW</td>
+<td style="text-align: right">1</td>
+<td style="text-align: center">EOS-BTC</td>
+<td style="text-align: right">0.1</td>
+<td style="text-align: center">OMG-ETH</td>
+<td style="text-align: right">0.1</td>
+</tr>
+<tr>
+<td style="text-align: center">EOS-KRW</td>
+<td style="text-align: right">0.1</td>
+<td style="text-align: center">OMG-BTC</td>
+<td style="text-align: right">0.1</td>
+<td style="text-align: center">QTUM-ETH</td>
+<td style="text-align: right">0.1</td>
+</tr>
+<tr>
+<td style="text-align: center">OMG-KRW</td>
+<td style="text-align: right">0.1</td>
+<td style="text-align: center">QTUM-BTC</td>
+<td style="text-align: right">0.01</td>
+<td style="text-align: center">MOBI-ETH</td>
+<td style="text-align: right">1</td>
+</tr>
+<tr>
+<td style="text-align: center">QTUM-KRW</td>
+<td style="text-align: right">0.05</td>
+<td style="text-align: center">MOBI-BTC</td>
+<td style="text-align: right">1</td>
+<td style="text-align: center">STEEM-ETH</td>
+<td style="text-align: right">0.1</td>
+</tr>
+<tr>
+<td style="text-align: center">MOBI-KRW</td>
+<td style="text-align: right">1</td>
+<td style="text-align: center">STEEM-BTC</td>
+<td style="text-align: right">0.1</td>
+<td style="text-align: center">SBD-ETH</td>
+<td style="text-align: right">0.5</td>
+</tr>
+<tr>
+<td style="text-align: center">STEEM-KRW</td>
+<td style="text-align: right">1</td>
+<td style="text-align: center">SBD-BTC</td>
+<td style="text-align: right">0.5</td>
+<td style="text-align: center">ELF-ETH</td>
+<td style="text-align: right">1</td>
+</tr>
+<tr>
+<td style="text-align: center">SBD-KRW</td>
+<td style="text-align: right">0.5</td>
+<td style="text-align: center">ELF-BTC</td>
+<td style="text-align: right">1</td>
+<td style="text-align: center">XRP-ETH</td>
+<td style="text-align: right">1</td>
+</tr>
+<tr>
+<td style="text-align: center">ELF-KRW</td>
+<td style="text-align: right">1</td>
+<td style="text-align: center">XRP-BTC</td>
+<td style="text-align: right">1</td>
+<td style="text-align: center">MKR-ETH</td>
+<td style="text-align: right">0.001</td>
+</tr>
+<tr>
+<td style="text-align: center">XRP-KRW</td>
+<td style="text-align: right">1</td>
+<td style="text-align: center">MKR-BTC</td>
+<td style="text-align: right">0.001</td>
+<td style="text-align: center">ZIL-ETH</td>
+<td style="text-align: right">1</td>
+</tr>
+<tr>
+<td style="text-align: center">ZIL-KRW</td>
+<td style="text-align: right">1</td>
+<td style="text-align: center">ZIL-BTC</td>
+<td style="text-align: right">1</td>
+<td style="text-align: center">LOOM-ETH</td>
+<td style="text-align: right">1</td>
+</tr>
+<tr>
+<td style="text-align: center">LOOM-KRW</td>
+<td style="text-align: right">1</td>
+<td style="text-align: center">LOOM-BTC</td>
+<td style="text-align: right">1</td>
+<td style="text-align: center">MOC-ETH</td>
+<td style="text-align: right">1</td>
+</tr>
+<tr>
+<td style="text-align: center">MOC-KRW</td>
+<td style="text-align: right">1</td>
+<td style="text-align: center">MOC-BTC</td>
+<td style="text-align: right">1</td>
+<td style="text-align: center">GNT-ETH</td>
+<td style="text-align: right">1</td>
+</tr>
+<tr>
+<td style="text-align: center">GNT-KRW</td>
+<td style="text-align: right">1</td>
+<td style="text-align: center">GNT-BTC</td>
+<td style="text-align: right">1</td>
+<td style="text-align: center">REP-ETH</td>
+<td style="text-align: right">0.05</td>
+</tr>
+<tr>
+<td style="text-align: center">REP-KRW</td>
+<td style="text-align: right">0.05</td>
+<td style="text-align: center">REP-BTC</td>
+<td style="text-align: right">0.05</td>
+<td style="text-align: center">KNC-ETH</td>
+<td style="text-align: right">1</td>
+</tr>
+<tr>
+<td style="text-align: center">KNC-KRW</td>
+<td style="text-align: right">1</td>
+<td style="text-align: center">KNC-BTC</td>
+<td style="text-align: right">1</td>
+<td style="text-align: center">GNO-ETH</td>
+<td style="text-align: right">0.01</td>
+</tr>
+<tr>
+<td style="text-align: center">GNO-KRW</td>
+<td style="text-align: right">0.01</td>
+<td style="text-align: center">GNO-BTC</td>
+<td style="text-align: right">0.01</td>
+<td style="text-align: center">ANT-ETH</td>
+<td style="text-align: right">1</td>
+</tr>
+<tr>
+<td style="text-align: center">ANT-KRW</td>
+<td style="text-align: right">1</td>
+<td style="text-align: center">ANT-BTC</td>
+<td style="text-align: right">1</td>
+<td style="text-align: center">QSP-ETH</td>
+<td style="text-align: right">1</td>
+</tr>
+<tr>
+<td style="text-align: center">QSP-KRW</td>
+<td style="text-align: right">1</td>
+<td style="text-align: center">QSP-BTC</td>
+<td style="text-align: right">1</td>
+<td style="text-align: center">BAT-ETH</td>
+<td style="text-align: right">1</td>
+</tr>
+<tr>
+<td style="text-align: center">BAT-KRW</td>
+<td style="text-align: right">1</td>
+<td style="text-align: center">BAT-BTC</td>
+<td style="text-align: right">1</td>
+<td style="text-align: center">IOST-ETH</td>
+<td style="text-align: right">1</td>
+</tr>
+<tr>
+<td style="text-align: center">IOST-KRW</td>
+<td style="text-align: right">1</td>
+<td style="text-align: center">IOST-BTC</td>
+<td style="text-align: right">1</td>
+<td style="text-align: center">BSV-ETH</td>
+<td style="text-align: right">0.0001</td>
+</tr>
+<tr>
+<td style="text-align: center">AERGO-KRW</td>
+<td style="text-align: right">0.001</td>
+<td style="text-align: center">AERGO-BTC</td>
+<td style="text-align: right">0.001</td>
+<td style="text-align: center">AERGO-ETH</td>
+<td style="text-align: right">0.0001</td>
+</tr>
+<tr>
+<td style="text-align: center">CRO-KRW</td>
+<td style="text-align: right">1</td>
+<td style="text-align: center">CRO-BTC</td>
+<td style="text-align: right">1</td>
+<td style="text-align: center">CRO-ETH</td>
+<td style="text-align: right">1</td>
+</tr>
+<tr>
+<td style="text-align: center">HOT-KRW</td>
+<td style="text-align: right">0.01</td>
+<td style="text-align: center">HOT-BTC</td>
+<td style="text-align: right">0.001</td>
+<td style="text-align: center">HOT-ETH</td>
+<td style="text-align: right">0.001</td>
+</tr>
+<tr>
+<td style="text-align: center">ENJ-KRW</td>
+<td style="text-align: right">0.01</td>
+<td style="text-align: center">ENJ-BTC</td>
+<td style="text-align: right">0.001</td>
+<td style="text-align: center">ENJ-ETH</td>
+<td style="text-align: right">0.001</td>
+</tr>
+<tr>
+<td style="text-align: center">MCO-KRW</td>
+<td style="text-align: right">0.01</td>
+<td style="text-align: center">MCO-BTC</td>
+<td style="text-align: right">0.001</td>
+<td style="text-align: center">MCO-ETH</td>
+<td style="text-align: right">0.001</td>
+</tr>
+<tr>
+<td style="text-align: center">HUM-KRW</td>
+<td style="text-align: right">5</td>
+<td style="text-align: center">HUM-BTC</td>
+<td style="text-align: right">0.5</td>
+<td style="text-align: center">HUM-ETH</td>
+<td style="text-align: right">0.5</td>
+</tr>
+<tr>
+<td style="text-align: center">IOTX-KRW</td>
+<td style="text-align: right">1</td>
+<td style="text-align: center">IOTX-BTC</td>
+<td style="text-align: right">0.1</td>
+<td style="text-align: center">IOTX-ETH</td>
+<td style="text-align: right">0.1</td>
+</tr>
+<tr>
+<td style="text-align: center">LYM-KRW</td>
+<td style="text-align: right">1</td>
+<td style="text-align: center">LYM-BTC</td>
+<td style="text-align: right">0.1</td>
+<td style="text-align: center">LYM-ETH</td>
+<td style="text-align: right">0.1</td>
+</tr>
+<tr>
+<td style="text-align: center">KRT-KRW</td>
+<td style="text-align: right">1</td>
+<td style="text-align: center">LUNA-BTC</td>
+<td style="text-align: right">0.5</td>
+<td style="text-align: center">LUNA-ETH</td>
+<td style="text-align: right">0.5</td>
+</tr>
+<tr>
+<td style="text-align: center">LUNA-KRW</td>
+<td style="text-align: right">0.5</td>
+<td style="text-align: center">AIN-BTC</td>
+<td style="text-align: right">0.1</td>
+<td style="text-align: center">AIN-ETH</td>
+<td style="text-align: right">0.1</td>
+</tr>
+<tr>
+<td style="text-align: center">AIN-KRW</td>
+<td style="text-align: right">1</td>
+<td style="text-align: center"></td>
+<td style="text-align: right"></td>
+<td style="text-align: center"></td>
+<td style="text-align: right"></td>
+</tr>
+</tbody></table>
 <h2 id='id-2'>주문 ID로 주문 취소하기</h2>
 <blockquote>
 <p>결과 : </p>
 </blockquote>
 <pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
 </span><span class="p">}</span><span class="w">
-</span></code></pre><h3 id='http-6'>HTTP 요청</h3>
+</span></code></pre><h3 id='http-7'>HTTP 요청</h3>
 <p><code>DELETE /orders/&lt;Order Id&gt;</code></p>
 <h3 id='url-2'>URL 파라미터</h3>
 <table><thead>
@@ -1050,14 +1231,14 @@ ISO 8601 타임스탬프를 이용하고 있습니다.
     </span><span class="s2">"baseAmount"</span><span class="p">:</span><span class="w"> </span><span class="mf">0.00149051</span><span class="p">,</span><span class="w">
     </span><span class="s2">"quoteAmount"</span><span class="p">:</span><span class="w"> </span><span class="mf">15399.94932</span><span class="p">,</span><span class="w">
     </span><span class="s2">"fee"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"price"</span><span class="p">:</span><span class="w"> </span><span class="mi">10332000</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"price"</span><span class="p">:</span><span class="w"> </span><span class="mi">10332000</span><span class="p">,</span><span class="err">Order</span><span class="w"> </span><span class="err">Identification</span><span class="w">
     </span><span class="s2">"timestamp"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2018-03-10T16:03:54.000Z"</span><span class="p">,</span><span class="w">
     </span><span class="s2">"side"</span><span class="p">:</span><span class="w"> </span><span class="s2">"buy"</span><span class="p">,</span><span class="w">
     </span><span class="s2">"tradingPairName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BTC-KRW"</span><span class="w">
   </span><span class="p">}</span><span class="w">
 </span><span class="p">]</span><span class="w">
-</span></code></pre><h3 id='http-7'>HTTP 요청</h3>
-<p><code>GET /trades?limit=[limit]&amp;pastmax=[pastmax]&amp;latestmin=[latestmin]&amp;after=[after]&amp;before=[before]</code></p>
+</span></code></pre><h3 id='http-8'>HTTP 요청</h3>
+<p><code>GET /trades</code></p>
 <h3 id='query'>Query 파라미터</h3>
 <table><thead>
 <tr>
@@ -1095,15 +1276,15 @@ ISO 8601 타임스탬프를 이용하고 있습니다.
 <h3 id='cd5e8f5148-6'>결과값 설명</h3>
 <p><code class="block">
 {
-  &quot;id&quot;: <i style="color: black;">[ID]</i>,
-  &quot;orderId&quot;: <i style="color: black;">[Order ID]</i>,
-  &quot;baseAmount&quot;: <i style="color: black;">[Base Amount]</i>,
-  &quot;quoteAmount&quot;: <i style="color: black;">[Quote Amount]</i>,
-  &quot;fee&quot;: <i style="color: black;">[Fee]</i>,
-  &quot;price&quot;: <i style="color: black;">[Price]</i>,
-  &quot;timestamp&quot;: <i style="color: black;">[Timestamp]</i>,
-  &quot;side&quot;: <i style="color: black;">[Side]</i>,
-  &quot;tradingPairName&quot;: <i style="color: black;">[Trading Pair]</i>
+  &quot;id&quot;: [ID],
+  &quot;orderId&quot;: [Order ID],
+  &quot;baseAmount&quot;: [Base Amount],
+  &quot;quoteAmount&quot;: [Quote Amount],
+  &quot;fee&quot;: [Fee],
+  &quot;price&quot;: [Price],
+  &quot;timestamp&quot;: [Timestamp],
+  &quot;side&quot;: [Side],
+  &quot;tradingPairName&quot;: [Trading Pair]
 }
 </code></p>
 
@@ -1172,7 +1353,7 @@ ISO 8601 타임스탬프를 이용하고 있습니다.
 </span><span class="p">]</span><span class="w">
 </span></code></pre>
 <p>GOPAX 지갑에서 취급하는 모든 자산의 목록을 조회할 수 있습니다.</p>
-<h3 id='http-8'>HTTP 요청</h3>
+<h3 id='http-9'>HTTP 요청</h3>
 <p><code>GET /assets</code></p>
 <h2 id='ab37bf30de'>거래쌍 목록 조회하기</h2>
 <blockquote>
@@ -1193,7 +1374,7 @@ ISO 8601 타임스탬프를 이용하고 있습니다.
     </span><span class="s2">"quoteAsset"</span><span class="p">:</span><span class="w"> </span><span class="s2">"KRW"</span><span class="w">
   </span><span class="p">}</span><span class="w">
 </span><span class="p">]</span><span class="w">
-</span></code></pre><h3 id='http-9'>HTTP 요청</h3>
+</span></code></pre><h3 id='http-10'>HTTP 요청</h3>
 <p><code>GET /trading-pairs</code></p>
 <h2 id='ticker'>Ticker 조회하기</h2>
 <blockquote>
@@ -1206,7 +1387,7 @@ ISO 8601 타임스탬프를 이용하고 있습니다.
   </span><span class="s2">"volume"</span><span class="p">:</span><span class="w"> </span><span class="mf">1752.05558316</span><span class="p">,</span><span class="w">
   </span><span class="s2">"time"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2018-03-14T03:50:41.184Z"</span><span class="w">
 </span><span class="p">}</span><span class="w">
-</span></code></pre><h3 id='http-10'>HTTP 요청</h3>
+</span></code></pre><h3 id='http-11'>HTTP 요청</h3>
 <p><code>GET /trading-pairs/&lt;Trading Pair&gt;/ticker</code></p>
 <h3 id='url-3'>URL 파라미터</h3>
 <table><thead>
@@ -1224,7 +1405,7 @@ ISO 8601 타임스탬프를 이용하고 있습니다.
 <aside class="notice">
 ISO 8601 타임스탬프를 이용하고 있습니다.
 </aside>
-<h2 id='orderbook'>Orderbook 조회하기</h2><h3 id='http-11'>HTTP 요청</h3>
+<h2 id='orderbook'>Orderbook 조회하기</h2><h3 id='http-12'>HTTP 요청</h3>
 <p><code>GET /trading-pairs/&lt;Trading Pair&gt;/book</code></p>
 <h3 id='url-4'>URL 파라미터</h3>
 <table><thead>
@@ -1252,8 +1433,8 @@ ISO 8601 타임스탬프를 이용하고 있습니다.
 <td>호가창의 상세정보 수준<br><br>1 = 매수호가 및 매도호가<br>2 = 매수 및 매도 주문 각 50개<br>기타 = 호가창 전체</td>
 </tr>
 </tbody></table>
-<h2 id='ed00ab10dc'>최근 체결 거래 조회하기</h2><h3 id='http-12'>HTTP 요청</h3>
-<p><code>GET /trading-pairs/&lt;Trading Pair&gt;/trades?limit=[limit]&amp;pastmax=[pastmax]&amp;latestmin=[latestmin]&amp;after=[after]&amp;before=[before]</code></p>
+<h2 id='ed00ab10dc'>최근 체결 거래 조회하기</h2><h3 id='http-13'>HTTP 요청</h3>
+<p><code>GET /trading-pairs/&lt;Trading Pair&gt;/trades</code></p>
 <h3 id='url-5'>URL 파라미터</h3>
 <table><thead>
 <tr>
@@ -1331,11 +1512,11 @@ ISO 8601 타임스탬프를 이용하고 있습니다.
 </span></code></pre><h3 id='cd5e8f5148-8'>결과값 설명</h3>
 <p><code class="block">
 {
-  &quot;time&quot;: <i style="color: black;">[Time]</i>,
-  &quot;id&quot;: <i style="color: black;">[ID]</i>,
-  &quot;price&quot;: <i style="color: black;">[Price]</i>,
-  &quot;amount&quot;: <i style="color: black;">[Amount]</i>,
-  &quot;side&quot;: <i style="color: black;">[Side]</i>
+  &quot;time&quot;: [Time],
+  &quot;id&quot;: [ID],
+  &quot;price&quot;: [Price],
+  &quot;amount&quot;: [Amount],
+  &quot;side&quot;: [Side],
 }
 </code></p>
 
@@ -1382,17 +1563,17 @@ ISO 8601 타임스탬프를 이용하고 있습니다.
   </span><span class="s2">"volume"</span><span class="p">:</span><span class="w"> </span><span class="mf">1700.84866009</span><span class="p">,</span><span class="w">
   </span><span class="s2">"time"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2018-03-14T05:02:37.337Z"</span><span class="w">
 </span><span class="p">}</span><span class="w">
-</span></code></pre><h3 id='http-13'>HTTP 요청</h3>
+</span></code></pre><h3 id='http-14'>HTTP 요청</h3>
 <p><code>GET /trading-pairs/&lt;Trading Pair&gt;/stats</code></p>
 <h3 id='cd5e8f5148-9'>결과값 설명</h3>
 <p><code class="block">
 {
-  &quot;open&quot;: <i style="color: black;">[Open]</i>,
-  &quot;high&quot;: <i style="color: black;">[High]</i>,
-  &quot;low&quot;: <i style="color: black;">[Low]</i>,
-  &quot;close&quot;: <i style="color: black;">[Close]</i>,
-  &quot;volume&quot;: <i style="color: black;">[Volume]</i>,
-  &quot;time&quot;: <i style="color: black;">[Time]</i>
+  &quot;open&quot;: [Open],
+  &quot;high&quot;: [High],
+  &quot;low&quot;: [Low],
+  &quot;close&quot;: [Close],
+  &quot;volume&quot;: [Volume],
+  &quot;time&quot;: [Time],
 }
 </code></p>
 
@@ -1429,9 +1610,11 @@ ISO 8601 타임스탬프를 이용하고 있습니다.
 </tbody></table>
 
 <aside class="notice">
-ISO 8601 타임스탬프를 이용하고 있습니다. 
+ISO 8601 타임스탬프를 이용하고 있습니다.
 </aside>
 <h2 id='a1dac3e0a0'>과거 기록 조회하기</h2>
+<p>Order Identification</p>
+
 <blockquote>
 <p>결과 :</p>
 </blockquote>
@@ -1453,102 +1636,60 @@ ISO 8601 타임스탬프를 이용하고 있습니다.
     </span><span class="mf">0.01</span><span class="w">
   </span><span class="p">]</span><span class="w">
 </span><span class="p">]</span><span class="w">
-</span></code></pre><h3 id='http-14'>HTTP 요청</h3>
-<p><code>GET /trading-pairs/&lt;Trading Pair&gt;/candles?start=&lt;Start&gt;&amp;end=&lt;End&gt;&amp;interval=&lt;Interval&gt;</code></p>
-<h3 id='url-6'>URL 파라미터</h3>
-<table><thead>
-<tr>
-<th>파라미터</th>
-<th>설명</th>
-</tr>
-</thead><tbody>
-<tr>
-<td>Trading Pair</td>
-<td>거래 쌍. <a href="#ab37bf30de">거래쌍 목록 조회하기</a>에서 전체 목록을 확인할 수 있습니다.</td>
-</tr>
-</tbody></table>
-<h3 id='query-4'>Query 파라미터</h3>
-<table><thead>
-<tr>
-<th>파라미터</th>
-<th>필수 여부</th>
-<th>설명</th>
-</tr>
-</thead><tbody>
-<tr>
-<td>Start</td>
-<td>필수</td>
-<td>시작 시점 Timestamp (ms 단위)</td>
-</tr>
-<tr>
-<td>End</td>
-<td>필수</td>
-<td>종료 시점 Timestamp (ms 단위)</td>
-</tr>
-<tr>
-<td>Interval</td>
-<td>필수</td>
-<td>희망하는 시간 간격 (분 단위, 1/5/30/1440)</td>
-</tr>
-</tbody></table>
-<h3 id='cd5e8f5148-10'>결과값 설명</h3>
-<p><code class="block">
-[
-  [
-    <i style="color: black;">[Time]</i>,
-    <i style="color: black;">[Low]</i>,
-    <i style="color: black;">[High]</i>,
-    <i style="color: black;">[Open]</i>,
-    <i style="color: black;">[Close]</i>,
-    <i style="color: black;">[Volume]</i>
-  ],
-  [
-    1521004080000,
-    10081000,
-    10081000,
-    10081000,
-    10081000,
-    0.01
-  ]
-]
-</code></p>
+</span><span class="err">```Order</span><span class="w"> </span><span class="err">Identification</span><span class="w">
+</span><span class="err">###</span><span class="w"> </span><span class="err">HTTP</span><span class="w"> </span><span class="err">요청</span><span class="w">
+</span><span class="err">`GET</span><span class="w"> </span><span class="err">/trading-pairs/&lt;Trading</span><span class="w"> </span><span class="err">Pair&gt;/candles?start=&lt;Start&gt;&amp;end=&lt;End&gt;&amp;interval=&lt;Interval&gt;`</span><span class="w">
 
-<table><thead>
-<tr>
-<th>값</th>
-<th>설명</th>
-</tr>
-</thead><tbody>
-<tr>
-<td>Time</td>
-<td>최근 데이터 갱신 시각</td>
-</tr>
-<tr>
-<td>Low</td>
-<td>24시간 동안의 최저가</td>
-</tr>
-<tr>
-<td>High</td>
-<td>24시간 동안의 최고가</td>
-</tr>
-<tr>
-<td>Open</td>
-<td>24시간 전의 가격</td>
-</tr>
-<tr>
-<td>Close</td>
-<td>현재가 (1분마다 갱신)</td>
-</tr>
-<tr>
-<td>Volume</td>
-<td>24시간 동안의 거래량</td>
-</tr>
-</tbody></table>
-<h2 id='24-2'>모든 거래쌍의 최근 24시간 통계 조회하기</h2>
-<blockquote>
-<p>결과 :</p>
-</blockquote>
-<pre class="highlight json tab-json"><code><span class="p">[</span><span class="w">
+</span><span class="err">###</span><span class="w"> </span><span class="err">URL</span><span class="w"> </span><span class="err">파라미터</span><span class="w">
+</span><span class="err">|</span><span class="w"> </span><span class="err">파라미터</span><span class="w"> </span><span class="err">|</span><span class="w"> </span><span class="err">설명</span><span class="w"> </span><span class="err">|</span><span class="w">
+</span><span class="err">|</span><span class="w"> </span><span class="err">---</span><span class="w"> </span><span class="err">|</span><span class="w"> </span><span class="err">---</span><span class="w"> </span><span class="err">|</span><span class="w">
+</span><span class="err">|</span><span class="w"> </span><span class="err">Trading</span><span class="w"> </span><span class="err">Pair</span><span class="w"> </span><span class="err">|</span><span class="w"> </span><span class="err">거래</span><span class="w"> </span><span class="err">쌍.</span><span class="w"> </span><span class="p">[</span><span class="err">거래쌍</span><span class="w"> </span><span class="err">목록</span><span class="w"> </span><span class="err">조회하기</span><span class="p">]</span><span class="err">(#ab</span><span class="mi">37</span><span class="err">bf</span><span class="mi">30</span><span class="err">de)에서</span><span class="w"> </span><span class="err">전체</span><span class="w"> </span><span class="err">목록을</span><span class="w"> </span><span class="err">확인할</span><span class="w"> </span><span class="err">수</span><span class="w"> </span><span class="err">있습니다.</span><span class="w"> </span><span class="err">|</span><span class="w">
+
+</span><span class="err">###</span><span class="w"> </span><span class="err">Query</span><span class="w"> </span><span class="err">파라미터</span><span class="w">
+</span><span class="err">|</span><span class="w"> </span><span class="err">파라미터</span><span class="w"> </span><span class="err">|</span><span class="w"> </span><span class="err">필수</span><span class="w"> </span><span class="err">여부</span><span class="w"> </span><span class="err">|</span><span class="w"> </span><span class="err">설명</span><span class="w"> </span><span class="err">|</span><span class="w">
+</span><span class="err">|</span><span class="w"> </span><span class="err">---</span><span class="w"> </span><span class="err">|</span><span class="w"> </span><span class="err">---</span><span class="w"> </span><span class="err">|</span><span class="w"> </span><span class="err">---</span><span class="w"> </span><span class="err">|</span><span class="w">
+</span><span class="err">|</span><span class="w"> </span><span class="err">Start</span><span class="w"> </span><span class="err">|</span><span class="w"> </span><span class="err">필수</span><span class="w"> </span><span class="err">|</span><span class="w"> </span><span class="err">시작</span><span class="w"> </span><span class="err">시점</span><span class="w"> </span><span class="err">Timestamp</span><span class="w"> </span><span class="err">(ms</span><span class="w"> </span><span class="err">단위)</span><span class="w"> </span><span class="err">|</span><span class="w">
+</span><span class="err">|</span><span class="w"> </span><span class="err">End</span><span class="w"> </span><span class="err">|</span><span class="w"> </span><span class="err">필수</span><span class="w"> </span><span class="err">|</span><span class="w"> </span><span class="err">종료</span><span class="w"> </span><span class="err">시점</span><span class="w"> </span><span class="err">Timestamp</span><span class="w"> </span><span class="err">(ms</span><span class="w"> </span><span class="err">단위)</span><span class="w"> </span><span class="err">|</span><span class="w">
+</span><span class="err">|</span><span class="w"> </span><span class="err">Interval</span><span class="w"> </span><span class="err">|</span><span class="w"> </span><span class="err">필수</span><span class="w"> </span><span class="err">|</span><span class="w"> </span><span class="err">희망하는</span><span class="w"> </span><span class="err">시간</span><span class="w"> </span><span class="err">간격</span><span class="w"> </span><span class="err">(분</span><span class="w"> </span><span class="err">단위</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="err">/</span><span class="mi">5</span><span class="err">/</span><span class="mi">30</span><span class="err">/</span><span class="mi">1440</span><span class="err">)</span><span class="w"> </span><span class="err">|</span><span class="w">
+
+</span><span class="err">###</span><span class="w"> </span><span class="err">결과값</span><span class="w"> </span><span class="err">설명</span><span class="w">
+
+</span><span class="err">&lt;code</span><span class="w"> </span><span class="err">class=</span><span class="s2">"block"</span><span class="err">&gt;</span><span class="w">
+</span><span class="p">[</span><span class="w">
+  </span><span class="p">[</span><span class="w">
+    </span><span class="p">[</span><span class="err">Time</span><span class="p">],</span><span class="w">
+    </span><span class="p">[</span><span class="err">Low</span><span class="p">],</span><span class="w">
+    </span><span class="p">[</span><span class="err">High</span><span class="p">],</span><span class="w">
+    </span><span class="p">[</span><span class="err">Open</span><span class="p">],</span><span class="w">
+    </span><span class="p">[</span><span class="err">Close</span><span class="p">],</span><span class="w">
+    </span><span class="p">[</span><span class="err">Volume</span><span class="p">]</span><span class="w">
+  </span><span class="p">],</span><span class="err">Order</span><span class="w"> </span><span class="err">Identification</span><span class="w">
+  </span><span class="p">[</span><span class="w">
+    </span><span class="mi">1521004080000</span><span class="p">,</span><span class="w">
+    </span><span class="mi">10081000</span><span class="p">,</span><span class="w">
+    </span><span class="mi">10081000</span><span class="p">,</span><span class="w">
+    </span><span class="mi">10081000</span><span class="p">,</span><span class="w">
+    </span><span class="mi">10081000</span><span class="p">,</span><span class="w">
+    </span><span class="mf">0.01</span><span class="w">
+  </span><span class="p">]</span><span class="w">
+</span><span class="p">]</span><span class="w">
+</span><span class="err">&lt;/code&gt;</span><span class="w">
+
+</span><span class="err">|</span><span class="w"> </span><span class="err">값</span><span class="w"> </span><span class="err">|</span><span class="w"> </span><span class="err">설명</span><span class="w"> </span><span class="err">|</span><span class="w">
+</span><span class="err">|</span><span class="w"> </span><span class="err">---</span><span class="w"> </span><span class="err">|</span><span class="w"> </span><span class="err">---</span><span class="w"> </span><span class="err">|</span><span class="w">
+</span><span class="err">|</span><span class="w"> </span><span class="err">Time</span><span class="w"> </span><span class="err">|</span><span class="w"> </span><span class="err">최근</span><span class="w"> </span><span class="err">데이터</span><span class="w"> </span><span class="err">갱신</span><span class="w"> </span><span class="err">시각</span><span class="w"> </span><span class="err">|</span><span class="w">
+</span><span class="err">|</span><span class="w"> </span><span class="err">Low</span><span class="w"> </span><span class="err">|</span><span class="w"> </span><span class="mi">24</span><span class="err">시간</span><span class="w"> </span><span class="err">동안의</span><span class="w"> </span><span class="err">최저가</span><span class="w"> </span><span class="err">|</span><span class="w">
+</span><span class="err">|</span><span class="w"> </span><span class="err">High</span><span class="w"> </span><span class="err">|</span><span class="w"> </span><span class="mi">24</span><span class="err">시간</span><span class="w"> </span><span class="err">동안의</span><span class="w"> </span><span class="err">최고가</span><span class="w"> </span><span class="err">|</span><span class="w">
+</span><span class="err">|</span><span class="w"> </span><span class="err">Open</span><span class="w"> </span><span class="err">|</span><span class="w"> </span><span class="mi">24</span><span class="err">시간</span><span class="w"> </span><span class="err">전의</span><span class="w"> </span><span class="err">가격</span><span class="w"> </span><span class="err">|</span><span class="w">
+</span><span class="err">|</span><span class="w"> </span><span class="err">Close</span><span class="w"> </span><span class="err">|</span><span class="w"> </span><span class="err">현재가</span><span class="w"> </span><span class="err">(</span><span class="mi">1</span><span class="err">분마다</span><span class="w"> </span><span class="err">갱신)</span><span class="w"> </span><span class="err">|</span><span class="w">
+</span><span class="err">|</span><span class="w"> </span><span class="err">Volume</span><span class="w"> </span><span class="err">|</span><span class="w"> </span><span class="mi">24</span><span class="err">시간</span><span class="w"> </span><span class="err">동안의</span><span class="w"> </span><span class="err">거래량</span><span class="w"> </span><span class="err">|</span><span class="w">
+
+</span><span class="err">##</span><span class="w"> </span><span class="err">모든</span><span class="w"> </span><span class="err">거래쌍의</span><span class="w"> </span><span class="err">최근</span><span class="w"> </span><span class="mi">24</span><span class="err">시간</span><span class="w"> </span><span class="err">통계</span><span class="w"> </span><span class="err">조회하기</span><span class="w">
+
+</span><span class="err">&gt;</span><span class="w"> </span><span class="err">결과</span><span class="w"> </span><span class="p">:</span><span class="w">
+
+</span><span class="err">```json</span><span class="w">
+</span><span class="p">[</span><span class="w">
   </span><span class="p">{</span><span class="w">
     </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ETH-KRW"</span><span class="p">,</span><span class="w">
     </span><span class="s2">"open"</span><span class="p">:</span><span class="w"> </span><span class="mi">780000</span><span class="p">,</span><span class="w">
@@ -1567,7 +1708,7 @@ ISO 8601 타임스탬프를 이용하고 있습니다.
     </span><span class="s2">"time"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2018-03-14T05:12:08.245Z"</span><span class="w">
   </span><span class="p">},</span><span class="w"> </span><span class="p">{</span><span class="w">
     </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BCH-KRW"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"open"</span><span class="p">:</span><span class="w"> </span><span class="mi">1234000</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"open"</span><span class="p">:</span><span class="w"> </span><span class="mi">1234000</span><span class="p">,</span><span class="err">Order</span><span class="w"> </span><span class="err">Identification</span><span class="w">
     </span><span class="s2">"high"</span><span class="p">:</span><span class="w"> </span><span class="mi">1234000</span><span class="p">,</span><span class="w">
     </span><span class="s2">"low"</span><span class="p">:</span><span class="w"> </span><span class="mi">1120000</span><span class="p">,</span><span class="w">
     </span><span class="s2">"close"</span><span class="p">:</span><span class="w"> </span><span class="mi">1149500</span><span class="p">,</span><span class="w">
@@ -1577,16 +1718,16 @@ ISO 8601 타임스탬프를 이용하고 있습니다.
 </span><span class="p">]</span><span class="w">
 </span></code></pre><h3 id='http-15'>HTTP 요청</h3>
 <p><code>GET /trading-pairs/stats</code></p>
-<h3 id='cd5e8f5148-11'>결과값 설명</h3>
+<h3 id='cd5e8f5148-10'>결과값 설명</h3>
 <p><code class="block">
   {
-  &quot;name&quot;: <i style="color: black;">[Trading Pair]</i>,
-  &quot;open&quot;: <i style="color: black;">[Open]</i>,
-  &quot;high&quot;: <i style="color: black;">[High]</i>,
-  &quot;low&quot;: <i style="color: black;">[Low]</i>,
-  &quot;close&quot;: <i style="color: black;">[Close]</i>,
-  &quot;volume&quot;: <i style="color: black;">[Volume]</i>,
-  &quot;time&quot;: <i style="color: black;">[Time]</i>
+  &quot;name&quot;: [Trading Pair],
+  &quot;open&quot;: [Open],
+  &quot;high&quot;: [High],
+  &quot;low&quot;: [Low],
+  &quot;close&quot;: [Close],
+  &quot;volume&quot;: [Volume],
+  &quot;time&quot;: [Time]
 }
 </code></p>
 

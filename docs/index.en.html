@@ -317,9 +317,27 @@
 
         <ul class="toc-footer">
             <li>API history</li>
-            <li><a href='javascript:goAPIhistory("index.en.html")' >latest</a></li>
-            <li><a href='javascript:goAPIhistory("index.en.v.0.1.html")' >V0.1</a></li>
+            <li><a href='javascript:goAPIhistory("")' >latest</a></li>
+            <li><a href='javascript:goAPIhistory("v.0.1")' >V0.1</a></li>
         </ul>
+
+        <div class="toc-exchange">              
+          <label for="exchange" id="exchange_title">Exchange</label> 
+          <select id="exchange" onChange="javascript:changeExchange(this.value)" style="width:100px;">
+            <option value="ko">Korea</option>
+            <option value="en">Global</option>
+            <option value="id">Indonesia</option>
+          </select>
+        </div>
+
+        <div class="toc-lang">
+          <label for="languageCode" id="language_title">Language</label> 
+          <select id="languageCode"  onChange="javascript:changeLanguage(this.value)" style="width:100px;">
+            <option value="ko">한국어</option>
+            <option value="en">English</option>
+            <option value="id">Indonesian</option>
+          </select>
+        </div>
 
     </div>
     <div class="page-wrapper">
@@ -332,7 +350,7 @@
 <h2 id='api-endpoint-url'>API Endpoint (URL)</h2>
 <p>GOPAX REST API provides endpoints for account/order management and public market data.</p>
 
-<p><code id="apiUrl" ></code></p>
+<p><code id="apiUrl" >https://api.gopax.com</code></p>
 <h2 id='api-call-rate-limit'>API Call Rate Limit</h2>
 <p>When the API call rate limit is exceeded, the status code 429 - Too Many Requests will be returned.</p>
 
@@ -421,7 +439,7 @@ Content-Type: application/json
 </code></p>
 
 <aside class="warning">
-The above example cannot be used for testing. Create it through <a href="javascript:getApiKey()">personal API Key</a>
+The above example cannot be used for testing. Create it through personal <a href="javascript:getApiKey()">API Key</a>
 </aside>
 <h1 id='authenticated-calls'>Authenticated Calls</h1><h2 id='get-balances'>Get balances</h2>
 <blockquote>
@@ -742,7 +760,7 @@ All API timestamps is returned in microseconds according to the ISO 8601 format
 <span class="p">}</span>
 
 <span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
-    <span class="n">req</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="n">url</span> <span class="o">=</span> <span class="s">'https://api.gopax.co.kr'</span> <span class="o">+</span> <span class="n">request_path</span><span class="p">,</span> <span class="n">headers</span> <span class="o">=</span> <span class="n">custom_headers</span><span class="p">,</span><span class="n">json</span><span class="o">=</span><span class="n">request_body</span><span class="p">)</span>
+    <span class="n">req</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="n">url</span> <span class="o">=</span> <span class="s">'API Endpoint URL'</span> <span class="o">+</span> <span class="n">request_path</span><span class="p">,</span> <span class="n">headers</span> <span class="o">=</span> <span class="n">custom_headers</span><span class="p">,</span><span class="n">json</span><span class="o">=</span><span class="n">request_body</span><span class="p">)</span>
 
     <span class="k">if</span> <span class="n">req</span><span class="o">.</span><span class="n">ok</span><span class="p">:</span>
         <span class="k">print</span><span class="p">(</span><span class="n">req</span><span class="o">.</span><span class="n">text</span><span class="p">)</span>
@@ -791,7 +809,7 @@ All API timestamps is returned in microseconds according to the ISO 8601 format
 <span class="kd">var</span> <span class="nx">hmac</span> <span class="o">=</span> <span class="nx">crypto</span><span class="p">.</span><span class="nx">createHmac</span><span class="p">(</span><span class="s1">'sha512'</span><span class="p">,</span> <span class="nx">key</span><span class="p">);</span>
 <span class="kd">var</span> <span class="nx">sign</span> <span class="o">=</span> <span class="nx">hmac</span><span class="p">.</span><span class="nx">update</span><span class="p">(</span><span class="nx">what</span><span class="p">).</span><span class="nx">digest</span><span class="p">(</span><span class="s1">'base64'</span><span class="p">);</span>
 
-<span class="kd">var</span> <span class="nx">host</span> <span class="o">=</span> <span class="s1">'api.gopax.co.kr'</span><span class="p">;</span>
+<span class="kd">var</span> <span class="nx">host</span> <span class="o">=</span> <span class="s1">'API Endpoint URL without protocol'</span><span class="p">;</span>
 
 <span class="kd">var</span> <span class="nx">options</span> <span class="o">=</span> <span class="p">{</span>
   <span class="nx">method</span><span class="p">,</span>
@@ -817,7 +835,7 @@ All API timestamps is returned in microseconds according to the ISO 8601 format
 <span class="k">private</span> <span class="nx">apiKey</span> <span class="o">=</span> <span class="s1">''</span><span class="p">;</span>
 <span class="k">private</span> <span class="nx">apiSecret</span> <span class="o">=</span> <span class="s1">''</span><span class="p">;</span>
 
-<span class="k">const</span> <span class="no">API_HOST</span> <span class="o">=</span> <span class="s1">'https://api.gopax.co.kr'</span><span class="p">;</span>
+<span class="k">const</span> <span class="no">API_HOST</span> <span class="o">=</span> <span class="s1">'API Endpoint URL'</span><span class="p">;</span>
 <span class="k">const</span> <span class="no">VERSION</span> <span class="o">=</span> <span class="s1">'gopax-php-sdk-20171216'</span><span class="p">;</span>
 
 <span class="k">private</span> <span class="k">function</span> <span class="nf">request</span><span class="p">(</span><span class="nx">string</span> <span class="nv">$method</span><span class="p">,</span> <span class="nx">string</span> <span class="nv">$path</span><span class="p">,</span> <span class="nv">$request</span> <span class="o">=</span> <span class="k">NULL</span><span class="p">)</span>
@@ -981,6 +999,10 @@ All API timestamps is returned in microseconds according to the ISO 8601 format
 
 <aside class="notice">
 All API timestamps is returned in microseconds according to the ISO 8601 format.
+</aside>
+
+<aside class="warning">
+Please check <a href="#api-endpoint-url">API Endpoint URL</a>.
 </aside>
 <h2 id='cancel-order-by-order-id'>Cancel order by order ID</h2>
 <blockquote>
@@ -1695,10 +1717,7 @@ Description of ResponseAll API timestamps is returned in microseconds according 
                 <a href="#" data-language-name="javascript">javascript</a>
                 <a href="#" data-language-name="php">php</a>
                 <a href="#" data-language-name="python">python</a>
-              <select id="languageCode"  onChange="javascript:changeLanguage(this.value,'true')" width="15">
-                <option value="ko">한국어</option>
-                <option value="en">English</option>
-              </select>
+            
           </div>
       </div>
       
