@@ -1,27 +1,27 @@
 #
-# 주문 조회하기
+# Get order
 #
 import time, base64, hmac, hashlib, requests, json
 
-# 발급받은 api키와 시크릿키를 입력한다
+# Use your API key and the secret
 apikey = ''
 secret = ''
 
-# nonce값 생성
+# Generate nonce
 nonce = str(time.time())
 method = 'GET'
 request_path = '/orders'
 
-#필수 정보를 연결하여 prehash 문자열을 생성함
+# Generate prehash string
 what = nonce + method + request_path
-#base64로 secret을 디코딩함
+# Decode the secret using base64
 key = base64.b64decode(secret)
-#hmac으로 필수 메시지에 서명하고
+# Generate the signature using HMAC
 signature = hmac.new(key, str(what).encode('utf-8'), hashlib.sha512)
-#그 결과물을 base64로 인코딩함
+# Finally, Encode the signature in base64
 signature_b64 = base64.b64encode(signature.digest())
 
-# HTML 소스 가져오기
+# Get HTML source
 def HTMLsouceGet(p):
 	print (p.text)
 	
@@ -39,7 +39,7 @@ def main():
 		HTMLsouceGet(req)
 
 	else:
-		print ('요청 에러')
+		print ('Request error')
 		HTMLsouceGet(req)
  
 if __name__ == '__main__':

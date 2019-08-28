@@ -26,6 +26,7 @@ class Response
     }
 }
 
+// Define constants
 class Constants
 {
     const LIMIT = 'limit';
@@ -43,6 +44,7 @@ class Constants
     const BEFORE = 'before';
 }
 
+// Define error code
 class Errors
 {
     const INVALID_ASSET = 100;
@@ -87,7 +89,7 @@ class Client
     private $apiKey;
     private $apiSecret;
     
-    const API_HOST = 'https://api.gopax.co.kr';
+    const API_HOST = 'https://api.gopax.co.kr'; //Please check API endpoint
     const VERSION = 'gopax-php-sdk-20171216';
     
     public function __construct(string $apiKey = '', string $apiSecret = '')
@@ -96,12 +98,14 @@ class Client
         $this->apiSecret = $apiSecret;
     }
     
+    // Generate nonce
     private static function getNonce()
     {
         $mt = explode(' ', microtime());
         return $mt[1] . substr($mt[0], 2, 6);
     }
     
+    // Generate signature
     private function getSignature($nonce, $method, $path, $body)
     {
         $tokenizedPath = explode('?', $path);
