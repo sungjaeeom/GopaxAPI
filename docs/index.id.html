@@ -735,7 +735,7 @@ Semua API timestamp mengembalikan dalam microsecond mengikuti standar format ISO
     <span class="s">"tradingPairName"</span><span class="p">:</span> <span class="s">"ETH-IDR"</span>
 <span class="p">}</span>
 
-<span class="n">what</span> <span class="o">=</span> <span class="n">nonce</span> <span class="o">+</span> <span class="n">method</span> <span class="o">+</span> <span class="n">request_path</span> <span class="o">+</span> <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">request_body</span><span class="p">,</span><span class="n">sort_keys</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+<span class="n">what</span> <span class="o">=</span> <span class="n">nonce</span> <span class="o">+</span> <span class="n">method</span> <span class="o">+</span> <span class="n">request_path</span> <span class="o">+</span> <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">request_body</span><span class="p">)</span>
 <span class="n">key</span> <span class="o">=</span> <span class="n">base64</span><span class="o">.</span><span class="n">b64decode</span><span class="p">(</span><span class="n">secret</span><span class="p">)</span>
 <span class="n">signature</span> <span class="o">=</span> <span class="n">hmac</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">what</span><span class="p">)</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s">'utf-8'</span><span class="p">),</span> <span class="n">hashlib</span><span class="o">.</span><span class="n">sha512</span><span class="p">)</span>
 <span class="n">signature_b64</span> <span class="o">=</span> <span class="n">base64</span><span class="o">.</span><span class="n">b64encode</span><span class="p">(</span><span class="n">signature</span><span class="o">.</span><span class="n">digest</span><span class="p">())</span>
@@ -1611,6 +1611,8 @@ Semua API timestamp mengembalikan dalam microsecond mengikuti standar format ISO
 <aside class="notice">
 Semua API timestamp mengembalikan dalam microsecond mengikuti standar format ISO 8601. Hampir semua bahasa pemrograman dan framework modern mendukung format ini.
 </aside>
+
+<p>© Streami, Inc. All right reserved.</p>
 <h1 id='errors'>Errors</h1><h2 id='http-status-response-code'>HTTP Status (Response code)</h2>
 <table><thead>
 <tr>
@@ -1695,8 +1697,6 @@ Semua API timestamp mengembalikan dalam microsecond mengikuti standar format ISO
 <td>Invalid API Key</td>
 </tr>
 </tbody></table>
-
-<p>© Streami, Inc. All right reserved.</p>
 
       </div>
       <div class="dark-box">

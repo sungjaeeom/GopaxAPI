@@ -319,6 +319,7 @@
         <ul class="toc-footer">
             <li>API history</li>
             <li><a href='javascript:goAPIhistory("")' >latest</a></li>
+            <li><a href='javascript:goAPIhistory(".v.0.2")' >V0.2</a></li>
             <li><a href='javascript:goAPIhistory(".v.0.1")' >V0.1</a></li>
         </ul>
 
@@ -751,7 +752,7 @@ ISO 8601 타임스탬프를 이용하고 있습니다.
     <span class="s">"tradingPairName"</span><span class="p">:</span> <span class="s">"ETH-KRW"</span>
 <span class="p">}</span>
 
-<span class="n">what</span> <span class="o">=</span> <span class="n">nonce</span> <span class="o">+</span> <span class="n">method</span> <span class="o">+</span> <span class="n">request_path</span> <span class="o">+</span> <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">request_body</span><span class="p">,</span><span class="n">sort_keys</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+<span class="n">what</span> <span class="o">=</span> <span class="n">nonce</span> <span class="o">+</span> <span class="n">method</span> <span class="o">+</span> <span class="n">request_path</span> <span class="o">+</span> <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">request_body</span><span class="p">)</span>
 <span class="n">key</span> <span class="o">=</span> <span class="n">base64</span><span class="o">.</span><span class="n">b64decode</span><span class="p">(</span><span class="n">secret</span><span class="p">)</span>
 <span class="n">signature</span> <span class="o">=</span> <span class="n">hmac</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">what</span><span class="p">)</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s">'utf-8'</span><span class="p">),</span> <span class="n">hashlib</span><span class="o">.</span><span class="n">sha512</span><span class="p">)</span>
 <span class="n">signature_b64</span> <span class="o">=</span> <span class="n">base64</span><span class="o">.</span><span class="n">b64encode</span><span class="p">(</span><span class="n">signature</span><span class="o">.</span><span class="n">digest</span><span class="p">())</span>
@@ -906,7 +907,9 @@ ISO 8601 타임스탬프를 이용하고 있습니다.
   &quot;side&quot;: <i style="color: black;">[Side]</i>,
   &quot;price&quot;: <i style="color: black;">[Price]</i>,
   &quot;amount&quot;: <i style="color: black;">[Amount]</i>,
-  &quot;tradingPairName&quot;: <i style="color: black;">[Trading Pair]</i>
+  &quot;tradingPairName&quot;: <i style="color: black;">[Trading Pair]</i>,
+  &quot;timeInForce&quot;: <i style="color: black;">[Time In Force]</i>,
+  &quot;protection&quot;: <i style="color: black;">[Protection]</i>
 }
 </code></p>
 
@@ -936,7 +939,27 @@ ISO 8601 타임스탬프를 이용하고 있습니다.
 <td>Trading Pair</td>
 <td>거래 쌍. <a href="#ab37bf30de">거래쌍 목록 조회하기</a>에서 전체 목록을 확인할 수 있습니다.</td>
 </tr>
+<tr>
+<td>Time In Force</td>
+<td>조건부 주문 유형 (<code>GTC</code>,<code>PO</code>,<code>IOC</code>, <code>FOK</code>)</td>
+</tr>
+<tr>
+<td>Protection</td>
+<td>최초 체결가 기준 ±10% 초과 되는 주문 취소 (<code>yes</code>, <code>no</code>)</td>
+</tr>
 </tbody></table>
+
+<aside class="notice">
+PO(Post Only)는 접수시점 이후의 주문에 대하여 체결하는 조건입니다.
+</aside>
+
+<aside class="notice">
+IOC(Immediate-Or-Cancel Order)는 호가의 접수시점에서 호가한 수량 중 매매계약을 체결할 수 있는 수량에 대하여는 매매거래를 성립시키고, 매매계약이 체결되지 아니한 수량은 취소하는 조건(즉시체결, 잔량취소)입니다.
+</aside>
+
+<aside class="notice">
+FOK(Fill-Or-Kill Order)는 호가의 접수시점에서 호가한 수량의 전부에 대하여 매매계약을 체결할 수 있는 경우에는 매매거래를 성립시키고, 그러하지 아니한 경우에는 당해수량의 전부를 취소하는 조건 (전량체결, 전량취소)입니다.
+</aside>
 
 <aside class="warning">
 시장가 주문시 amount는 자신이 지불할 자산의 총량(ETH-KRW에서 매수의 경우 KRW, ETH-KRW에서 매도의 경우 ETH)입니다.
@@ -956,7 +979,10 @@ ISO 8601 타임스탬프를 이용하고 있습니다.
   </span><span class="s2">"tradingPairName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ETH-KRW"</span><span class="p">,</span><span class="w">
   </span><span class="s2">"side"</span><span class="p">:</span><span class="w"> </span><span class="s2">"buy"</span><span class="p">,</span><span class="w">
   </span><span class="s2">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"limit"</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"createdAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2018-01-09T10:43:10.000Z"</span><span class="w">
+  </span><span class="s2">"createdAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2018-01-09T10:43:10.000Z"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"timeInForce"</span><span class="p">:</span><span class="w"> </span><span class="s2">"fok"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"protection"</span><span class="p">:</span><span class="w"> </span><span class="s2">"no"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"forcedCompletionReason"</span><span class="p">:</span><span class="w"> </span><span class="s2">"timeInForce"</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
 <p><code class="block" style="white-space: pre; ">
@@ -967,7 +993,10 @@ ISO 8601 타임스탬프를 이용하고 있습니다.
   &quot;tradingPairName&quot;: <i style="color: black;">[Trading Pair]</i>,
   &quot;side&quot;: <i style="color: black;">[Side]</i>,
   &quot;type&quot;: <i style="color: black;">[Type[]</i>,
-  &quot;createdAt&quot;: <i style="color: black;">[Created At]</i>
+  &quot;createdAt&quot;: <i style="color: black;">[Created At]</i>,
+  &quot;timeInForce&quot;: <i style="color: black;">[Time In Force]</i>,
+  &quot;protection&quot;:  <i style="color: black;">[Protection]</i>,
+  &quot;forcedCompletionReason&quot;: <i style="color: black;">[Forced Completion Reason]</i>
 }
 </code></p>
 
@@ -1004,6 +1033,18 @@ ISO 8601 타임스탬프를 이용하고 있습니다.
 <tr>
 <td>Created At</td>
 <td>주문 시각</td>
+</tr>
+<tr>
+<td>Time In Force</td>
+<td>조건부 주문 유형 (<code>GTC</code>,<code>PO</code>,<code>IOC</code>, <code>FOK</code>)</td>
+</tr>
+<tr>
+<td>Protection</td>
+<td>최초 체결가 기준 ±10% 초과 되는 주문 취소 (<code>yes</code>, <code>no</code>)</td>
+</tr>
+<tr>
+<td>Forced Completion Reason</td>
+<td>주문 체결 유형</td>
 </tr>
 </tbody></table>
 
@@ -1479,12 +1520,12 @@ ISO 8601 타임스탬프를 이용하고 있습니다.
 <tr>
 <td>Start</td>
 <td>필수</td>
-<td>시작 시점 Timestamp (ms 단위)</td>
+<td>시작 시점 Timestamp (μs 단위)</td>
 </tr>
 <tr>
 <td>End</td>
 <td>필수</td>
-<td>종료 시점 Timestamp (ms 단위)</td>
+<td>종료 시점 Timestamp (μs 단위)</td>
 </tr>
 <tr>
 <td>Interval</td>
@@ -1630,6 +1671,8 @@ ISO 8601 타임스탬프를 이용하고 있습니다.
 <aside class="notice">
 ISO 8601 타임스탬프를 이용하고 있습니다.
 </aside>
+
+<p>© Streami, Inc. 모든 권리 보유.</p>
 <h1 id='errors'>Errors</h1><h2 id='http-status'>HTTP Status (응답 코드)</h2>
 <table><thead>
 <tr>
@@ -1714,8 +1757,6 @@ ISO 8601 타임스탬프를 이용하고 있습니다.
 <td>API키가 올바르지 않음</td>
 </tr>
 </tbody></table>
-
-<p>© Streami, Inc. 모든 권리 보유.</p>
 
       </div>
       <div class="dark-box">
